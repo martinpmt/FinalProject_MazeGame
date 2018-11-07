@@ -3,12 +3,138 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package mazegame;
+package model;
+
+import java.awt.Color;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
- * @author jarkom
+ * @author user only
  */
 public class Tempat {
-    
+
+    private int tinggi; // tinggi tempat Game
+    private int lebar;  // lebar tempat Game
+    private ArrayList<Sel> daftarSel; // daftar sel
+
+    private String isi; // isi file konfigurasi
+
+    public static int batasKanan;
+    public static int batasBawah;
+
+    public Tempat() {
+        daftarSel = new ArrayList<Sel>();
+    }
+
+    /**
+     * Fungsi pembaca file konfigurasi. Hasil pembacaan file akan disimpan di
+     * atribut 'isi' dan juga di atribut daftarSel
+     *
+     * @param file
+     */
+    public void bacaKonfigurasi(File file) {
+        FileInputStream fis = null;
+        String hasil = "";
+        int baris = 0;
+        int kolom = 0;
+        int dataInt;
+        try {
+            fis = new FileInputStream(file);
+            while ((dataInt = fis.read()) != -1) {
+                hasil = hasil + (char) dataInt;
+                if ((char) dataInt != '\n') {
+                    Sel sel = new Sel(kolom, baris, (char) dataInt);
+                    sel.setTinggi(10);
+                    sel.setLebar(10);
+                    if (sel.getNilai()=='@') {
+                        sel.setWarna(Color.red);
+                    }else{
+                        sel.setWarna(Color.black);
+                    }
+                    this.tambahSel(sel);
+                    kolom++;
+                } else {
+                    kolom=0;
+                    baris++;
+                }
+            }
+            this.setIsi(hasil);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Tempat.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Tempat.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    /**
+     * Fungsi penambah daftar sel.
+     *
+     * @param sel
+     */
+    public void tambahSel(Sel sel) {
+        daftarSel.add(sel);
+    }
+
+    /**
+     * @return the tinggi
+     */
+    public int getTinggi() {
+        return tinggi;
+    }
+
+    /**
+     * @param tinggi the tinggi to set
+     */
+    public void setTinggi(int tinggi) {
+        this.tinggi = tinggi;
+    }
+
+    /**
+     * @return the lebar
+     */
+    public int getLebar() {
+        return lebar;
+    }
+
+    /**
+     * @param lebar the lebar to set
+     */
+    public void setLebar(int lebar) {
+        this.lebar = lebar;
+    }
+
+    /**
+     * @return the daftarSel
+     */
+    public ArrayList<Sel> getDaftarSel() {
+        return daftarSel;
+    }
+
+    /**
+     * @param daftarSel the daftarSel to set
+     */
+    public void setDaftarSel(ArrayList<Sel> daftarSel) {
+        this.daftarSel = daftarSel;
+    }
+
+    /**
+     * @return the isi
+     */
+    public String getIsi() {
+        return isi;
+    }
+
+    /**
+     * @param isi the isi to set
+     */
+    public void setIsi(String isi) {
+        this.isi = isi;
+    }
 }
