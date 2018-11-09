@@ -51,12 +51,16 @@ public class Tempat {
                 hasil = hasil + (char) dataInt;
                 if ((char) dataInt != '\n') {
                     Sel sel = new Sel(kolom, baris, (char) dataInt);
-                    sel.setTinggi(10);
-                    sel.setLebar(10);
-                    if (sel.getNilai()=='@') {
-                        sel.setWarna(Color.red);
-                    }else{
+                    sel.setTinggi(50);
+                    sel.setLebar(50);
+                    if (sel.getNilai()=='#') {
                         sel.setWarna(Color.black);
+                    }else if(sel.getNilai()=='.'){
+                        sel.setWarna(Color.white);
+                    }else if (sel.getNilai()=='@') {
+                        sel.setWarna(Color.yellow);
+                    }else if (sel.getNilai()=='O') {
+                        sel.setWarna(Color.red);
                     }
                     this.tambahSel(sel);
                     kolom++;
