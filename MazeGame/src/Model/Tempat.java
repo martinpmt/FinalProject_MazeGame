@@ -23,7 +23,6 @@ public class Tempat {
     private int tinggi; // tinggi tempat Game
     private int lebar;  // lebar tempat Game
     private ArrayList<Sel> daftarSel; // daftar sel
-
     private String isi; // isi file konfigurasi
 
     public static int batasKanan;
@@ -51,8 +50,8 @@ public class Tempat {
                 hasil = hasil + (char) dataInt;
                 if ((char) dataInt != '\n') {
                     Sel sel = new Sel(kolom, baris, (char) dataInt);
-                    sel.setTinggi(50);
-                    sel.setLebar(50);
+                    sel.setTinggi(20);
+                    sel.setLebar(20);
                     if (sel.getNilai()=='#') {
                         sel.setWarna(Color.black);
                     }else if(sel.getNilai()=='.'){

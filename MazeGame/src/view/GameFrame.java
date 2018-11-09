@@ -19,6 +19,8 @@ import Model.*;
  */
 public class GameFrame extends JFrame {
 
+    private Pemain pemain;
+
     private TempatPanel tempatPanel;
 
     private JLabel perintahlabel;
@@ -38,6 +40,7 @@ public class GameFrame extends JFrame {
     public GameFrame(String title, TempatPanel tempatPanel) {
         setTitle(title);
         this.tempatPanel = tempatPanel;
+        this.pemain = new Pemain();
         this.init();
     }
 
@@ -70,11 +73,11 @@ public class GameFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JFileChooser jfc = new JFileChooser();
-                int returnVal=jfc.showOpenDialog(null);
+                int returnVal = jfc.showOpenDialog(null);
                 Tempat baca = new Tempat();
                 if (returnVal == JFileChooser.APPROVE_OPTION) {
                     baca.bacaKonfigurasi(jfc.getSelectedFile());
-                    
+
                 }
             }
         });
@@ -95,7 +98,7 @@ public class GameFrame extends JFrame {
         okButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                pindahKanan();
+                pindah();
             }
         });
 
@@ -113,7 +116,22 @@ public class GameFrame extends JFrame {
     /**
      * Fungsi untuk memindahkan sel dan menggambar ulang
      */
-    public void pindahKanan() {
+    public void pindah() {
+
+        //pindah pemain
+        String temp = perintahText.getText();
+        if (temp.substring(0).equalsIgnoreCase("u")) {
+            pemain.move(0, -32, 0, -1);
+        }
+        if (temp.substring(0).equalsIgnoreCase("d")) {
+            pemain.move(0, 32, 0, 1);
+        }
+        if (temp.substring(0).equalsIgnoreCase("l")) {
+            pemain.move(-32, 0, -1, 0);
+        }
+        if (temp.substring(0).equalsIgnoreCase("r")) {
+            pemain.move(0, 32, 1, 0);
+        }
         // posisiX seluruh sel ditambah 20
         // sehingga sel akan terlihat bergerak ke kanan
         for (int i = 0; i < getTempatPanel().getTempat().getDaftarSel().size(); i++) {
