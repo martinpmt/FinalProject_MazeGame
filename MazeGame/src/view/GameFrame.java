@@ -147,28 +147,36 @@ public class GameFrame extends JFrame {
                 check = sel.isBatasAtas();
             }
             if (check == true) {
-                sel.geserAtas();
+                for (int i = 0; i < Integer.parseInt(langkah); i++) {
+                    sel.geserAtas();
+                }
             }
         } else if (perintah.equalsIgnoreCase("D")) {
             for (int i = 0; i < Integer.parseInt(langkah); i++) {
                 check = sel.isBatasBawah();
             }
             if (check == true) {
-                sel.geserBawah();
+                for (int i = 0; i < Integer.parseInt(langkah); i++) {
+                    sel.geserBawah();
+                }
             }
         } else if (perintah.equalsIgnoreCase("R")) {
             for (int i = 0; i < Integer.parseInt(langkah); i++) {
                 check = sel.isBatasKanan();
             }
             if (check == true) {
-                sel.geserKanan();
+                for (int i = 0; i < Integer.parseInt(langkah); i++) {
+                    sel.geserKanan();
+                }
             }
         } else if (perintah.equalsIgnoreCase("L")) {
             for (int i = 0; i < Integer.parseInt(langkah); i++) {
                 check = sel.isBatasKiri();
             }
             if (check == true) {
-                sel.geserKiri();
+                for (int i = 0; i < Integer.parseInt(langkah); i++) {
+                    sel.geserKiri();
+                }
             }
         }
 

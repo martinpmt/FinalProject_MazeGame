@@ -37,6 +37,7 @@ public class Tempat {
      */
     public void bacaKonfigurasi(File file) {
         FileInputStream fis = null;
+        Sel sel = new Sel();
         String hasil = "";
         int baris = 0;
         int kolom = 0;
@@ -46,25 +47,15 @@ public class Tempat {
             while ((dataInt = fis.read()) != -1) {
                 hasil = hasil + (char) dataInt;
                 if ((char) dataInt != '\n') {
-                    Sel sel = new Sel(kolom, baris, (char) dataInt);
+                    sel = new Sel(kolom, baris, (char) dataInt);
                     sel.setTinggi(32);
                     sel.setLebar(32);
                     if (sel.getNilai() == '#') {
                         sel.setWarna(Color.black);
-                        sel.setPosisiX(kolom);
-                        sel.setPosisiY(baris);
                     } else if (sel.getNilai() == '.') {
                         sel.setWarna(Color.green);
-                        sel.setPosisiX(kolom);
-                        sel.setPosisiY(baris);
-                    } else if (sel.getNilai() == '@') {
-                        sel.setWarna(Color.red);
-                        sel.setPosisiX(kolom);
-                        sel.setPosisiY(baris);
                     } else if (sel.getNilai() == 'O') {
                         sel.setWarna(Color.yellow);
-                        sel.setPosisiX(kolom);
-                        sel.setPosisiY(baris);
                     }
                     this.tambahSel(sel);
                     kolom++;
@@ -73,6 +64,9 @@ public class Tempat {
                     baris++;
                 }
             }
+            sel.setWarna(Color.red);
+            sel.setPosisiX(sel.getPosisiXPemain());
+            sel.setPosisiY(sel.getPosisiYPemain());
             this.setIsi(hasil);
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Tempat.class.getName()).log(Level.SEVERE, null, ex);

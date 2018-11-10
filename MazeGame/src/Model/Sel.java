@@ -13,10 +13,12 @@ import java.awt.Color;
  */
 public class Sel {
 
-    private int posisiX; // nomor baris, dimulai dari nol (0)
-    private int posisiY; // nomor kolom, dimulai dari nol (0)
+    private int posisiX = 0; // nomor kolom, dimulai dari nol (0)
+    private int posisiY = 0; // nomor baris, dimulai dari nol (0)
     private int lebar;
     private int tinggi;
+    private int posisiXPemain = 1; //nomor kolom, dimulai dari (1)
+    private int posisiYPemain = 1; //nomor baris, dimukai dari (1)
 
     private char nilai;
     private Tempat tempat;
@@ -53,7 +55,7 @@ public class Sel {
      * @return
      */
     public boolean isBatasKiri() {
-        return this.getNilai()!='#';
+        return this.getNilai() != '#';
     }
 
     public void geserKiri() {
@@ -68,7 +70,7 @@ public class Sel {
      * @return
      */
     public boolean isBatasKanan() {
-        return this.getNilai()!='#';
+        return this.getNilai() != '#';
     }
 
     /**
@@ -101,7 +103,7 @@ public class Sel {
      * @return
      */
     public boolean isBatasBawah() {
-        return this.getNilai()!='#';
+        return this.getNilai() != '#';
     }
 
     public void geserBawah() {
@@ -192,6 +194,14 @@ public class Sel {
      */
     public void setTinggi(int tinggi) {
         this.tinggi = tinggi;
+    }
+
+    public int getPosisiXPemain() {
+        return posisiXPemain;
+    }
+
+    public int getPosisiYPemain() {
+        return posisiYPemain;
     }
 
     /**

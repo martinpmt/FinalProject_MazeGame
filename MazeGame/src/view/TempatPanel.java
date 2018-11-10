@@ -66,14 +66,13 @@ public class TempatPanel extends JPanel {
                             sel.getPosisiY() * sel.getTinggi(),
                             sel.getLebar(),
                             sel.getTinggi());
-                } else if (sel.getNilai() == '@') {
-                    g.setColor(sel.getWarna());
-                    g.fillRect(sel.getPosisiX() * sel.getLebar(),
-                            sel.getPosisiY() * sel.getTinggi(),
-                            sel.getLebar(),
-                            sel.getTinggi());
                 }
             }
+            g.setColor(sel.getWarna());
+            g.fillRect(sel.getPosisiXPemain() * sel.getLebar(),
+                    sel.getPosisiYPemain() * sel.getTinggi(),
+                    sel.getLebar(),
+                    sel.getTinggi());
         }
     }
 
