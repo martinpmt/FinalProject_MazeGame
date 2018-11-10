@@ -5,12 +5,9 @@
  */
 package Model;
 
-import java.awt.Color;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.util.ArrayList;
+import java.awt.*;
+import java.io.*;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -50,21 +47,29 @@ public class Tempat {
                 hasil = hasil + (char) dataInt;
                 if ((char) dataInt != '\n') {
                     Sel sel = new Sel(kolom, baris, (char) dataInt);
-                    sel.setTinggi(20);
-                    sel.setLebar(20);
-                    if (sel.getNilai()=='#') {
+                    sel.setTinggi(32);
+                    sel.setLebar(32);
+                    if (sel.getNilai() == '#') {
                         sel.setWarna(Color.black);
-                    }else if(sel.getNilai()=='.'){
-                        sel.setWarna(Color.white);
-                    }else if (sel.getNilai()=='@') {
-                        sel.setWarna(Color.yellow);
-                    }else if (sel.getNilai()=='O') {
+                        sel.setPosisiX(kolom);
+                        sel.setPosisiY(baris);
+                    } else if (sel.getNilai() == '.') {
+                        sel.setWarna(Color.green);
+                        sel.setPosisiX(kolom);
+                        sel.setPosisiY(baris);
+                    } else if (sel.getNilai() == '@') {
                         sel.setWarna(Color.red);
+                        sel.setPosisiX(kolom);
+                        sel.setPosisiY(baris);
+                    } else if (sel.getNilai() == 'O') {
+                        sel.setWarna(Color.yellow);
+                        sel.setPosisiX(kolom);
+                        sel.setPosisiY(baris);
                     }
                     this.tambahSel(sel);
                     kolom++;
                 } else {
-                    kolom=0;
+                    kolom = 0;
                     baris++;
                 }
             }

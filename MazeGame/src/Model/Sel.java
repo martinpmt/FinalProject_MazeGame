@@ -12,13 +12,14 @@ import java.awt.Color;
  * @author user only
  */
 public class Sel {
+
     private int posisiX; // nomor baris, dimulai dari nol (0)
     private int posisiY; // nomor kolom, dimulai dari nol (0)
     private int lebar;
     private int tinggi;
 
     private char nilai;
-
+    private Tempat tempat;
     private Color warna;
 
     public Sel() {
@@ -46,19 +47,19 @@ public class Sel {
         this.warna = warna;
     }
 
-    
     /**
      * Fungsi mengecek sel ada di batas kiri
      *
      * @return
      */
     public boolean isBatasKiri() {
-        if (posisiX <= 0) {
-            return true;
-        } else {
-            return false;
-        }
+        return this.getNilai()!='#';
+    }
 
+    public void geserKiri() {
+        if (isBatasKiri() == true) {
+            move(1, 0);
+        }
     }
 
     /**
@@ -67,34 +68,46 @@ public class Sel {
      * @return
      */
     public boolean isBatasKanan() {
-        if (posisiX + lebar < Tempat.batasKanan) {
-            return false;
-        } else {
-            return true;
-        }
+        return this.getNilai()!='#';
     }
 
     /**
      * Fungsi untuk menggeser sel ke kanan
      */
     public void geserKanan() {
-        if (isBatasKanan() == false) {
-            posisiX = posisiX + lebar;
+        if (isBatasKanan() == true) {
+            move(-1, 0);
         }
     }
 
     /**
      * Fungsi untuk mengecek sel ada di batas atas
+     *
+     * @return
      */
     public boolean isBatasAtas() {
-        return false;
+        return this.getNilai() != '#';
+    }
+
+    public void geserAtas() {
+        if (isBatasAtas() == true) {
+            move(0, -1);
+        }
     }
 
     /**
      * Fungsi untuk mengecek sel ada di batas bawah
+     *
+     * @return
      */
     public boolean isBatasBawah() {
-        return false;
+        return this.getNilai()!='#';
+    }
+
+    public void geserBawah() {
+        if (isBatasBawah() == true) {
+            move(0, 1);
+        }
     }
 
     /**
@@ -181,4 +194,15 @@ public class Sel {
         this.tinggi = tinggi;
     }
 
+    /**
+     * menggeser pemain
+     *
+     * @param dx
+     * @param dy
+     */
+    public void move(int dx, int dy) {
+        posisiX += dx;
+        posisiY += dy;
+
+    }
 }

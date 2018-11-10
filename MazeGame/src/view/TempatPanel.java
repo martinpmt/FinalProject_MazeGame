@@ -11,6 +11,8 @@ import java.awt.LayoutManager;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import Model.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  *
@@ -19,15 +21,16 @@ import Model.*;
 public class TempatPanel extends JPanel {
 
     private Tempat tempat;
-    private Pemain pemain;
     private Sel sel;
 
     public TempatPanel() {
+        tempat = new Tempat();
+        sel = new Sel();
+        setFocusable(true);
     }
 
     public TempatPanel(Tempat tempat) {
         this.tempat = tempat;
-        this.pemain = new Pemain();
     }
 
     /**
@@ -45,13 +48,7 @@ public class TempatPanel extends JPanel {
         if (tempat != null) {
             for (int i = 0; i < tempat.getDaftarSel().size(); i++) {
                 sel = tempat.getDaftarSel().get(i);
-                if (sel.getNilai() == '@') {
-                    g.setColor(sel.getWarna());
-                    g.fillOval(sel.getPosisiX() * sel.getLebar(),
-                            sel.getPosisiY() * sel.getTinggi(),
-                            sel.getLebar(),
-                            sel.getTinggi());
-                } else if (sel.getNilai() == '#') {
+                if (sel.getNilai() == '#') {
                     g.setColor(sel.getWarna());
                     g.fillRect(sel.getPosisiX() * sel.getLebar(),
                             sel.getPosisiY() * sel.getTinggi(),
@@ -65,18 +62,19 @@ public class TempatPanel extends JPanel {
                             sel.getTinggi());
                 } else if (sel.getNilai() == 'O') {
                     g.setColor(sel.getWarna());
-                    g.fillOval(sel.getPosisiX() * sel.getLebar(),
+                    g.fillRect(sel.getPosisiX() * sel.getLebar(),
+                            sel.getPosisiY() * sel.getTinggi(),
+                            sel.getLebar(),
+                            sel.getTinggi());
+                } else if (sel.getNilai() == '@') {
+                    g.setColor(sel.getWarna());
+                    g.fillRect(sel.getPosisiX() * sel.getLebar(),
                             sel.getPosisiY() * sel.getTinggi(),
                             sel.getLebar(),
                             sel.getTinggi());
                 }
             }
         }
-        //g.fillOval(pemain.getX(), pemain.getY(), sel.getLebar(), sel.getTinggi());
-//        pemain.fillOval(pemain.getX() 
-//                pemain.getPosisiY() * pemain.getTinggi(),
-//                sel.getLebar(),
-//                sel.getTinggi());
     }
 
     /**
@@ -92,5 +90,4 @@ public class TempatPanel extends JPanel {
     public void setTempat(Tempat tempat) {
         this.tempat = tempat;
     }
-
 }
