@@ -11,7 +11,7 @@ import view.*;
 /**
  *
  * @author Martin Paramarta / 175314090
- * @author Martin Paramarta / 175314111
+ * @author Gregorius Bryan Osaldi / 175314111
  */
 public class Maze {
 

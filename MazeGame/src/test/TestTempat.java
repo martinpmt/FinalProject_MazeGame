@@ -10,8 +10,7 @@ import Model.Tempat;
 
 /**
  *
- * @author Martin Paramarta / 175314090
- * @author Martin Paramarta / 175314111
+ * @author admin
  */
 public class TestTempat {
 

@@ -13,8 +13,7 @@ import view.TempatPanel;
 
 /**
  *
- * @author Martin Paramarta / 175314090
- * @author Martin Paramarta / 175314111
+ * @author user only
  */
 public class TestGame1 {
     public static void main(String[] args) {
