@@ -68,11 +68,7 @@ public class Tempat {
             sel.setPosisiX(sel.getPosisiXPemain());
             sel.setPosisiY(sel.getPosisiYPemain());
             this.setIsi(hasil);
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(Tempat.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(Tempat.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
     }
 
     /**
