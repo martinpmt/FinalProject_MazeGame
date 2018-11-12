@@ -13,7 +13,8 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author user only
+ * @author Martin Paramarta / 175314090
+ * @author Martin Paramarta / 175314111
  */
 public class Tempat {
 
@@ -69,6 +70,9 @@ public class Tempat {
             sel.setPosisiY(sel.getPosisiYPemain());
             this.setIsi(hasil);
         
+    }   catch (IOException ex) {
+            Logger.getLogger(Tempat.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

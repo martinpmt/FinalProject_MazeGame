@@ -14,7 +14,8 @@ import view.TempatPanel;
 
 /**
  *
- * @author user only
+ * @author Martin Paramarta / 175314090
+ * @author Martin Paramarta / 175314111
  */
 public class TestGame2 {
 
