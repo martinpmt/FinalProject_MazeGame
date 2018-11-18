@@ -9,41 +9,38 @@ import java.awt.Color;
 
 /**
  *
- * @author Martin Paramarta / 175314090
- * @author Gregorius Bryan Osaldi / 175314111
+ * @author user only
  */
 public class Sel {
 
-    private int posisiX = 0; // nomor kolom, dimulai dari nol (0)
-    private int posisiY = 0; // nomor baris, dimulai dari nol (0)
+   private int baris;
+    private int kolom;
     private int lebar;
     private int tinggi;
-    private int posisiXPemain = 1; //nomor kolom, dimulai dari (1)
-    private int posisiYPemain = 1; //nomor baris, dimukai dari (1)
 
     private char nilai;
-    private Tempat tempat;
+
     private Color warna;
 
     public Sel() {
     }
 
-    public Sel(int posisiX, int posisiY, char nilai) {
-        this.posisiX = posisiX;
-        this.posisiY = posisiY;
+    public Sel(int baris, int kolom, char nilai) {
+        this.baris = baris;
+        this.kolom = kolom;
         this.nilai = nilai;
     }
 
-    public Sel(int posisiX, int posisiY, char nilai, Color warna) {
-        this.posisiX = posisiX;
-        this.posisiY = posisiY;
+    public Sel(int baris, int kolom, char nilai, Color warna) {
+        this.baris = baris;
+        this.kolom = kolom;
         this.nilai = nilai;
         this.warna = warna;
     }
 
-    public Sel(int posisiX, int posisiY, int lebar, int tinggi, char nilai, Color warna) {
-        this.posisiX = posisiX;
-        this.posisiY = posisiY;
+    public Sel(int baris, int kolom, int lebar, int tinggi, char nilai, Color warna) {
+        this.baris = baris;
+        this.kolom = kolom;
         this.lebar = lebar;
         this.tinggi = tinggi;
         this.nilai = nilai;
@@ -56,13 +53,12 @@ public class Sel {
      * @return
      */
     public boolean isBatasKiri() {
-        return this.getNilai() != '#';
-    }
-
-    public void geserKiri() {
-        if (isBatasKiri() == true) {
-            move(1, 0);
+        if (kolom * lebar <= 0) {
+            return true;
+        } else {
+            return false;
         }
+
     }
 
     /**
@@ -71,74 +67,105 @@ public class Sel {
      * @return
      */
     public boolean isBatasKanan() {
-        return this.getNilai() != '#';
+        if (kolom * lebar + lebar < Tempat.batasKanan) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
     /**
      * Fungsi untuk menggeser sel ke kanan
      */
     public void geserKanan() {
-        if (isBatasKanan() == true) {
-            move(-1, 0);
+        if (isBatasKanan() == false) {
+            kolom++;
+        }else{
+            kolom--;
+        }
+    }
+
+    /**
+     * Fungsi untuk menggeser sel ke kanan
+     */
+    public void geserKiri() {
+        if (isBatasKiri() == false) {
+            kolom--;
+        }else{
+            kolom++;
         }
     }
 
     /**
      * Fungsi untuk mengecek sel ada di batas atas
-     *
-     * @return
      */
     public boolean isBatasAtas() {
-        return this.getNilai() != '#';
-    }
-
-    public void geserAtas() {
-        if (isBatasAtas() == true) {
-            move(0, -1);
+        if (baris * tinggi <= 0) {
+            return true;
+        } else {
+            return false;
         }
     }
 
     /**
      * Fungsi untuk mengecek sel ada di batas bawah
-     *
-     * @return
      */
     public boolean isBatasBawah() {
-        return this.getNilai() != '#';
-    }
-
-    public void geserBawah() {
-        if (isBatasBawah() == true) {
-            move(0, 1);
+        if (baris * tinggi + tinggi < Tempat.batasBawah) {
+            return false;
+        } else {
+            return true;
         }
     }
 
     /**
-     * @return the posisiX
+     * Fungsi untuk geser atas
      */
-    public int getPosisiX() {
-        return posisiX;
+    public void geserAtas() {
+        if (isBatasAtas() == false) {
+            baris--;
+        }else{
+            baris++;
+        }
     }
 
     /**
-     * @param posisiX the posisiX to set
+     * Fungsi untuk geser bawah
      */
-    public void setPosisiX(int posisiX) {
-        this.posisiX = posisiX;
+    public void geserBawah() {
+        if (isBatasBawah()== false) {
+            baris++;
+        }else{
+            baris--;
+        }
     }
 
     /**
-     * @return the posisiY
+     * @return the baris
      */
-    public int getPosisiY() {
-        return posisiY;
+    public int getBaris() {
+        return baris;
     }
 
     /**
-     * @param posisiY the posisiY to set
+     * @param baris the baris to set
      */
-    public void setPosisiY(int posisiY) {
-        this.posisiY = posisiY;
+    public void setBaris(int baris) {
+        this.baris = baris;
+    }
+
+    /**
+     * @return the kolom
+     */
+    public int getKolom() {
+        return kolom;
+    }
+
+    /**
+     * @param kolom the kolom to set
+     */
+    public void setKolom(int kolom) {
+        this.kolom = kolom;
     }
 
     /**
@@ -195,25 +222,5 @@ public class Sel {
      */
     public void setTinggi(int tinggi) {
         this.tinggi = tinggi;
-    }
-
-    public int getPosisiXPemain() {
-        return posisiXPemain;
-    }
-
-    public int getPosisiYPemain() {
-        return posisiYPemain;
-    }
-
-    /**
-     * menggeser pemain
-     *
-     * @param dx
-     * @param dy
-     */
-    public void move(int dx, int dy) {
-        posisiX += dx;
-        posisiY += dy;
-
     }
 }

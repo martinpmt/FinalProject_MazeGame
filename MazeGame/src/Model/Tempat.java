@@ -13,8 +13,7 @@ import java.util.logging.Logger;
 
 /**
  *
- * @author Martin Paramarta / 175314090
- * @author Gregorius Bryan Osaldi / 175314111
+ * @author user only
  */
 public class Tempat {
 
@@ -48,15 +47,26 @@ public class Tempat {
             while ((dataInt = fis.read()) != -1) {
                 hasil = hasil + (char) dataInt;
                 if ((char) dataInt != '\n') {
-                    sel = new Sel(kolom, baris, (char) dataInt);
-                    sel.setTinggi(32);
-                    sel.setLebar(32);
-                    if (sel.getNilai() == '#') {
-                        sel.setWarna(Color.black);
-                    } else if (sel.getNilai() == '.') {
-                        sel.setWarna(Color.green);
-                    } else if (sel.getNilai() == 'O') {
+                    if ((char) dataInt == '#') {
+                        sel = new Sel(baris, kolom, (char) dataInt);
+                        sel.setWarna(Color.BLACK);
+                        sel.setTinggi(32);
+                        sel.setLebar(32);
+                    } else if ((char) dataInt == '.') {
+                        sel = new Sel(baris, kolom, (char) dataInt);
+                        sel.setWarna(Color.white);
+                        sel.setTinggi(32);
+                        sel.setLebar(32);
+                    } else if ((char) dataInt == 'O') {
+                        sel = new Sel(baris, kolom, (char) dataInt);
                         sel.setWarna(Color.yellow);
+                        sel.setTinggi(32);
+                        sel.setLebar(32);
+                    } else if ((char) dataInt == '@') {
+                        sel = new Sel(baris, kolom, (char) dataInt);
+                        sel.setWarna(Color.RED);
+                        sel.setTinggi(32);
+                        sel.setLebar(32);
                     }
                     this.tambahSel(sel);
                     kolom++;
@@ -65,12 +75,10 @@ public class Tempat {
                     baris++;
                 }
             }
-            sel.setWarna(Color.red);
-            sel.setPosisiX(sel.getPosisiXPemain());
-            sel.setPosisiY(sel.getPosisiYPemain());
             this.setIsi(hasil);
-        
-    }   catch (IOException ex) {
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Tempat.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
             Logger.getLogger(Tempat.class.getName()).log(Level.SEVERE, null, ex);
         }
     }

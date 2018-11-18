@@ -16,8 +16,7 @@ import java.awt.event.ActionListener;
 
 /**
  *
- * @author Martin Paramarta / 175314090
- * @author Gregorius Bryan Osaldi / 175314111
+ * @author user only
  */
 public class TempatPanel extends JPanel {
 
@@ -48,32 +47,13 @@ public class TempatPanel extends JPanel {
         // gambar lingkaran dengan fillOval dengan diameter 20
         if (tempat != null) {
             for (int i = 0; i < tempat.getDaftarSel().size(); i++) {
-                sel = tempat.getDaftarSel().get(i);
-                if (sel.getNilai() == '#') {
-                    g.setColor(sel.getWarna());
-                    g.fillRect(sel.getPosisiX() * sel.getLebar(),
-                            sel.getPosisiY() * sel.getTinggi(),
-                            sel.getLebar(),
-                            sel.getTinggi());
-                } else if (sel.getNilai() == '.') {
-                    g.setColor(sel.getWarna());
-                    g.fillRect(sel.getPosisiX() * sel.getLebar(),
-                            sel.getPosisiY() * sel.getTinggi(),
-                            sel.getLebar(),
-                            sel.getTinggi());
-                } else if (sel.getNilai() == 'O') {
-                    g.setColor(sel.getWarna());
-                    g.fillRect(sel.getPosisiX() * sel.getLebar(),
-                            sel.getPosisiY() * sel.getTinggi(),
-                            sel.getLebar(),
-                            sel.getTinggi());
-                }
+                Sel sel = tempat.getDaftarSel().get(i);
+                g.setColor(sel.getWarna());
+                g.fillRect(sel.getKolom() * sel.getLebar(),
+                        sel.getBaris() * sel.getTinggi(),
+                        sel.getLebar(),
+                        sel.getTinggi());
             }
-            g.setColor(sel.getWarna());
-            g.fillRect(sel.getPosisiXPemain() * sel.getLebar(),
-                    sel.getPosisiYPemain() * sel.getTinggi(),
-                    sel.getLebar(),
-                    sel.getTinggi());
         }
     }
 

@@ -31,8 +31,8 @@ public class TestGame2 {
                 for (int i = 0; i < tempat.getDaftarSel().size(); i++) {
                     // menampilkan nilai posisiX,posisiY dan nilai
                     System.out.println(
-                            tempat.getDaftarSel().get(i).getPosisiX() + ","
-                            + tempat.getDaftarSel().get(i).getPosisiY() + ","
+                            tempat.getDaftarSel().get(i).getBaris() + ","
+                            + tempat.getDaftarSel().get(i).getKolom() + ","
                             + tempat.getDaftarSel().get(i).getNilai());
 
                 }
