@@ -21,12 +21,9 @@ import java.awt.event.ActionListener;
 public class TempatPanel extends JPanel {
 
     private Tempat tempat;
-    private Sel sel;
 
     public TempatPanel() {
-        tempat = new Tempat();
-        sel = new Sel();
-        setFocusable(true);
+        
     }
 
     public TempatPanel(Tempat tempat) {
@@ -49,10 +46,10 @@ public class TempatPanel extends JPanel {
             for (int i = 0; i < tempat.getDaftarSel().size(); i++) {
                 Sel sel = tempat.getDaftarSel().get(i);
                 g.setColor(sel.getWarna());
-                g.fillRect(sel.getKolom() * sel.getLebar(),
-                        sel.getBaris() * sel.getTinggi(),
-                        sel.getLebar(),
-                        sel.getTinggi());
+                g.fillRect(sel.getKolom() * sel.getLebarSel(),
+                        sel.getBaris() * sel.getTinggiSel(),
+                        sel.getLebarSel(),
+                        sel.getTinggiSel());
             }
         }
     }

@@ -12,6 +12,8 @@ import java.awt.event.*;
 import java.util.ArrayList;
 import javax.swing.*;
 import Model.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -20,7 +22,6 @@ import Model.*;
 public class GameFrame extends JFrame {
 
     private TempatPanel tempatPanel;
-    private Sel sel;
     private Tempat tempat;
 
     private JLabel perintahlabel;
@@ -38,7 +39,6 @@ public class GameFrame extends JFrame {
     }
 
     public GameFrame(String title, TempatPanel tempatPanel) {
-        sel = new Sel();
         tempat = new Tempat();
         setTitle(title);
         this.tempatPanel = tempatPanel;
@@ -79,7 +79,7 @@ public class GameFrame extends JFrame {
                 int returnVal = jf.showOpenDialog(null);
                 Tempat tempat = new Tempat();
                 if (returnVal == JFileChooser.APPROVE_OPTION) {
-                    tempat.bacaKonfigurasi(jf.getSelectedFile());
+                    tempat.bacaKonfigurasiPeta(jf.getSelectedFile());
                     // menampilkan atribut 'isi' dari kelas Tempat
                     System.out.println("\nIsi peta Baru = ");
                     System.out.println(tempat.getIsi());
@@ -119,50 +119,10 @@ public class GameFrame extends JFrame {
         okButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-//                boolean check = true;
-//                String perintah = perintahText.getText().substring(0, 1);
-//                String langkah = perintahText.getText().substring(1, 2);
-
-                if (perintahText.getText().equalsIgnoreCase("U")) {
-//                    for (int i = 0; i < Integer.parseInt(langkah); i++) {
-//                        check = sel.isBatasAtas();
-//                    }
-                    pindahAtas();
-//                    if (check == true) {
-//                        for (int i = 0; i < Integer.parseInt(langkah); i++) {
-//                             pindahAtas();
-//                        }
-//                    }
-                } else if (perintahText.getText().equalsIgnoreCase("D")) {
-//                    for (int i = 0; i < Integer.parseInt(langkah); i++) {
-//                        check = sel.isBatasBawah();
-//                    }
-                    pindahBawah();
-//                    if (check == true) {
-//                        for (int i = 0; i < Integer.parseInt(langkah); i++) {
-//                            pindahBawah();
-//                        }
-//                    }
-                } else if (perintahText.getText().equalsIgnoreCase("R")) {
-//                    for (int i = 0; i < Integer.parseInt(langkah); i++) {
-//                        check = sel.isBatasKanan();
-//                    }
-                    pindahKanan();
-//                    if (check == true) {
-//                        for (int i = 0; i < Integer.parseInt(langkah); i++) {
-//                            pindahKanan();
-//                        }
-//                    }
-                } else if (perintahText.getText().equalsIgnoreCase("L")) {
-//                    for (int i = 0; i < Integer.parseInt(langkah); i++) {
-//                        check = sel.isBatasKiri();
-//                    }
-                    pindahKiri();
-//                    if (check == true) {
-//                        for (int i = 0; i < Integer.parseInt(langkah); i++) {
-//                            pindahKiri();
-//                        }
-//                    }
+                try {
+                    tempat.PerintahGerak(perintahText.getText());
+                } catch (Exception ex) {
+                    JOptionPane.showMessageDialog(null, ex);
                 }
             }
         });
@@ -176,58 +136,6 @@ public class GameFrame extends JFrame {
 
         // set visible= true
         this.setVisible(true);
-    }
-
-    public void pindahKanan() {
-        // posisiX seluruh sel ditambah 20
-        // sehingga sel akan terlihat bergerak ke kanan
-        for (int i = 0; i < getTempatPanel().getTempat().getDaftarSel().size(); i++) {
-            // set posisiX yang baru
-            if (getTempatPanel().getTempat().getDaftarSel().get(i).getNilai() == '@') {
-                getTempatPanel().getTempat().getDaftarSel().get(i).geserKanan();
-            }
-        }
-        // gambar ulang tempat Panel
-        getTempatPanel().repaint();
-    }
-
-    public void pindahKiri() {
-        // posisiX seluruh sel ditambah 20
-        // sehingga sel akan terlihat bergerak ke kiri
-        for (int i = 0; i < getTempatPanel().getTempat().getDaftarSel().size(); i++) {
-            // set posisiX yang baru
-            if (getTempatPanel().getTempat().getDaftarSel().get(i).getNilai() == '@') {
-                getTempatPanel().getTempat().getDaftarSel().get(i).geserKiri();
-            }
-        }
-        // gambar ulang tempat Panel
-        getTempatPanel().repaint();
-    }
-
-    public void pindahAtas() {
-        // posisiX seluruh sel ditambah 20
-        // sehingga sel akan terlihat bergerak ke atas
-        for (int i = 0; i < getTempatPanel().getTempat().getDaftarSel().size(); i++) {
-            // set posisiX yang baru
-            if (getTempatPanel().getTempat().getDaftarSel().get(i).getNilai() == '@') {
-                getTempatPanel().getTempat().getDaftarSel().get(i).geserAtas();
-            }
-        }
-        // gambar ulang tempat Panel
-        getTempatPanel().repaint();
-    }
-
-    public void pindahBawah() {
-        // posisiX seluruh sel ditambah 20
-        // sehingga sel akan terlihat bergerak ke bawah
-        for (int i = 0; i < getTempatPanel().getTempat().getDaftarSel().size(); i++) {
-            // set posisiX yang baru
-            if (getTempatPanel().getTempat().getDaftarSel().get(i).getNilai() == '@') {
-                getTempatPanel().getTempat().getDaftarSel().get(i).geserBawah();
-            }
-        }
-        // gambar ulang tempat Panel
-        getTempatPanel().repaint();
     }
 
     /**
