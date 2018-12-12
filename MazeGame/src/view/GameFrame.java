@@ -23,7 +23,7 @@ public class GameFrame extends JFrame {
 
     private JLabel perintahlabel;
     private JTextField perintahText;
-    private JTextArea perintahTextHistory;
+    private JTextField perintahTextHistory;
     private JButton okButton;
 
     private JMenuBar menuBar;
@@ -47,7 +47,7 @@ public class GameFrame extends JFrame {
 
     public void init() {
         // set ukuran dan layout
-        this.setSize(290, 380);
+        this.setSize(500, 480);
         this.setLayout(new BorderLayout());
 
         // set menu Bar
@@ -126,7 +126,10 @@ public class GameFrame extends JFrame {
 
         this.perintahText = new JTextField(10);
         southPanel.add(perintahText);
-
+     
+        this.perintahTextHistory = new JTextField(10);
+        this.add(this.perintahTextHistory, BorderLayout.EAST);
+        
         this.okButton = new JButton("OK");
         southPanel.add(okButton);
 
@@ -134,13 +137,10 @@ public class GameFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 peta.PerintahGerak(perintahText.getText());
+                perintahTextHistory.setText(peta.getTeksPerintah());
             }
         });
-        this.perintahTextHistory = new JTextArea();
-        southPanel.add(perintahTextHistory);
-        
-        
-        
+
         // set contentPane
         Container cp = this.getContentPane();
         if (peta != null) {
