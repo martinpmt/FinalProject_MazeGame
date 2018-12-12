@@ -26,7 +26,7 @@ import javax.swing.JPanel;
 public class Peta extends JPanel {
 
     private ArrayList<Tembok> tembok = new ArrayList<>();//menyimpan data tembok
-    private ArrayList<Finish> finish = new ArrayList<>();//menyimpan data gawang
+    private Finish finish;
     private ArrayList<Sel> sel = new ArrayList<>();//menyimpan data tembok,finish,pemain
     private Pemain pemain;
     private final char TEMBOK = '#';
@@ -37,6 +37,8 @@ public class Peta extends JPanel {
     private int tinggi = 0;
     private int jarak = 20;//untuk menentukan besarkan pixel/jarak space gambar didalam panel
     private String isi;
+    private boolean complated = false;
+
     public static int batasKanan;
     public static int batasBawah;
 
@@ -67,22 +69,14 @@ public class Peta extends JPanel {
         this.tembok.add(tembok);
     }
 
-    public ArrayList<Finish> getFinish() {
-        return finish;
-    }
-
-    public void setFinish(Finish finish) {
-        this.finish.add(finish);
-    }
-
     public ArrayList<Sel> getSel() {
         return sel;
     }
 
-    public void setSel(Pemain pemain, ArrayList<Tembok> tembok, ArrayList<Finish> finish) {
+    public void setSel(Pemain pemain, ArrayList<Tembok> tembok, Finish finish) {
         this.sel.add(pemain);
         this.sel.addAll(tembok);
-        this.sel.addAll(finish);
+        this.sel.add(finish);
     }
 
     private void bacaKonfigurasi(File file) {
@@ -93,7 +87,6 @@ public class Peta extends JPanel {
                 int posisiX = 0;
                 int posisiY = 0;
                 Tembok wall;
-                Finish f;
                 String isi = "";
                 int data;
                 while ((data = input.read()) != -1) {
@@ -109,8 +102,7 @@ public class Peta extends JPanel {
                         } else if ((char) data == KOSONG) {
                             posisiX += jarak;
                         } else if ((char) data == FINISH) {
-                            f = new Finish(posisiX, posisiY, (char) data);
-                            setFinish(f);
+                            finish = new Finish(posisiX, posisiY, (char) data);
                             posisiX += jarak;
                         }
                     } else {
@@ -135,19 +127,18 @@ public class Peta extends JPanel {
         g.setColor(new Color(255, 255, 255));//set panel warna putih
         g.fillRect(0, 0, this.getLebar(), this.getTinggi());// set tinggi lebar sesuai konfigurasi
         setSel(pemain, tembok, finish);
-        for (int i = 0; i < sel.size(); i++) {
-            Finish fin = (Finish) finish.get(0);
-            if (pemain.getPosisiX() != fin.getPosisiX() && pemain.getPosisiY() != fin.getPosisiY()) {//jika semua gawang sudah terisi bola) {
+        if (!complated) {
+            for (int i = 0; i < sel.size(); i++) {
                 if (sel.get(i) != null) {
                     Sel item = (Sel) sel.get(i);//map diterjemahkan dalam kelas pixel.
                     g.drawImage(item.getImage(), item.getPosisiX(), item.getPosisiY(), this);//proses gambar di panel
                 }
-
-            } else {
-                g.setColor(Color.ORANGE);
-                g.setFont(new Font("Serif", Font.BOLD, 48));
-                g.drawString("Winner", 150, 300);
             }
+        }
+        if (complated) {
+            g.setColor(Color.ORANGE);
+            g.setFont(new Font("Serif", Font.BOLD, 48));
+            g.drawString("Winner", 150, 300);
         }
     }
 
@@ -168,38 +159,42 @@ public class Peta extends JPanel {
                 Allperintah.add(input);
                 if (in[0].equalsIgnoreCase("u")) {
                     for (int i = 0; i < Integer.parseInt(String.valueOf(in[1])); i++) {
-                        if (cekObjekNabrakTembok(pemain, "u")) {
+                        if (cekPemainNabrakTembok(pemain, "u")) {
                             return;
                         } else {
                             pemain.Gerak(0, -jarak);
+                            isCompleted();
                             repaint();
                         }
 
                     }
                 } else if (in[0].equalsIgnoreCase("d")) {
                     for (int i = 0; i < Integer.parseInt(String.valueOf(in[1])); i++) {
-                        if (cekObjekNabrakTembok(pemain, "d")) {
+                        if (cekPemainNabrakTembok(pemain, "d")) {
                             return;
                         } else {
                             pemain.Gerak(0, jarak);
+                            isCompleted();
                             repaint();
                         }
                     }
                 } else if (in[0].equalsIgnoreCase("r")) {
                     for (int i = 0; i < Integer.parseInt(String.valueOf(in[1])); i++) {
-                        if (cekObjekNabrakTembok(pemain, "r")) {
+                        if (cekPemainNabrakTembok(pemain, "r")) {
                             return;
                         } else {
                             pemain.Gerak(jarak, 0);
+                            isCompleted();
                             repaint();
                         }
                     }
                 } else if (in[0].equalsIgnoreCase("l")) {
                     for (int i = 0; i < Integer.parseInt(String.valueOf(in[1])); i++) {
-                        if (cekObjekNabrakTembok(pemain, "l")) {
+                        if (cekPemainNabrakTembok(pemain, "l")) {
                             return;
                         } else {
                             pemain.Gerak(-jarak, 0);
+                            isCompleted();
                             repaint();
                         }
                     }
@@ -212,7 +207,7 @@ public class Peta extends JPanel {
         }
     }
 
-    private boolean cekObjekNabrakTembok(Sel pemain, String input) {
+    private boolean cekPemainNabrakTembok(Sel pemain, String input) {
         boolean bantu = false;
         if (input.equalsIgnoreCase("l")) {
             for (int i = 0; i < tembok.size(); i++) {
@@ -251,11 +246,17 @@ public class Peta extends JPanel {
         return bantu;//default return false
     }
 
+    public void isCompleted() {
+        if (pemain.getPosisiX() == finish.getPosisiX() && pemain.getPosisiY() == finish.getPosisiY()) {
+            complated = true;
+        }
+    }
+
     public void restartLevel() {
         Allperintah.clear();//hapus semua perintah yang tersimpan
-        finish.clear();//hapus gawang
         tembok.clear();//hapus tembok
         sel.clear();//hapus map
+        complated = false;
         bacaKonfigurasi(Alamatpeta);//set ulang gambar peta
         repaint();//gambar ulang
     }
@@ -266,13 +267,5 @@ public class Peta extends JPanel {
             bantu = bantu + Allperintah.get(i) + " ";
         }
         return bantu;
-    }
-
-    public int getPoin() {
-        int bantu = Allperintah.size();
-        if (bantu < 20) {
-            JOptionPane.showMessageDialog(this, sel);
-        }
-        return bantu;//085245843743
     }
 }

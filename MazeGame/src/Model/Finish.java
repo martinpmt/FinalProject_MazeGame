@@ -16,7 +16,7 @@ import javax.swing.ImageIcon;
 public class Finish extends Sel {
 
     private char nilai;
-
+    
     public Finish(int x, int y, char nilai) {
         super(x, y);//Mengakses constructor superclass (pixel) oleh subclass (Gawang) dan lsg di set nilai xy Gawang 
         URL loc = this.getClass().getResource("/Image/gawang.jpg");
