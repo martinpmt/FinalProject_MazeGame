@@ -12,8 +12,6 @@ import java.awt.event.*;
 import java.util.ArrayList;
 import javax.swing.*;
 import Model.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -21,8 +19,7 @@ import java.util.logging.Logger;
  */
 public class GameFrame extends JFrame {
 
-    private TempatPanel tempatPanel;
-    private Tempat tempat;
+    private Peta peta;
 
     private JLabel perintahlabel;
     private JTextField perintahText;
@@ -36,12 +33,12 @@ public class GameFrame extends JFrame {
     public GameFrame(String title) {
         this.setTitle(title);
         this.init();
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    public GameFrame(String title, TempatPanel tempatPanel) {
-        tempat = new Tempat();
+    public GameFrame(String title, Peta peta) {
         setTitle(title);
-        this.tempatPanel = tempatPanel;
+        this.peta = peta;
         this.init();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
@@ -74,31 +71,27 @@ public class GameFrame extends JFrame {
         bacaKonfigurasiMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                TempatPanel tempatPanel = new TempatPanel();
                 JFileChooser jf = new JFileChooser();
                 int returnVal = jf.showOpenDialog(null);
-                Tempat tempat = new Tempat();
                 if (returnVal == JFileChooser.APPROVE_OPTION) {
-                    tempat.bacaKonfigurasiPeta(jf.getSelectedFile());
+                    Peta tempat = new Peta(jf.getSelectedFile());
                     // menampilkan atribut 'isi' dari kelas Tempat
                     System.out.println("\nIsi peta Baru = ");
                     System.out.println(tempat.getIsi());
-                    if (tempat.getDaftarSel() != null) {
-                        for (int i = 0; i < tempat.getDaftarSel().size(); i++) {
+                    if (tempat.getSel() != null) {
+                        for (int i = 0; i < tempat.getSel().size(); i++) {
                             // menampilkan nilai posisiX,posisiY dan nilai
                             System.out.println(
-                                    tempat.getDaftarSel().get(i).getBaris() + ","
-                                    + tempat.getDaftarSel().get(i).getKolom() + ","
-                                    + tempat.getDaftarSel().get(i).getNilai());
-
+                                    tempat.getSel().get(i).getPosisiX() + ","
+                                    + tempat.getSel().get(i).getPosisiY() + ",");
                         }
                     }
                 }
                 // Set ukuran tempat
-                Tempat.batasKanan = 500;
-                Tempat.batasBawah = 300;
+                Peta.batasKanan = 410;
+                Peta.batasBawah = 410;
                 // buat tempatPanel dan tambahkan tempat ke tempatPanel
-                tempatPanel.setTempat(tempat);
+                peta = new Peta();
                 init();
             }
         });
@@ -119,37 +112,18 @@ public class GameFrame extends JFrame {
         okButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                try {
-                    tempat.PerintahGerak(perintahText.getText());
-                } catch (Exception ex) {
-                    JOptionPane.showMessageDialog(null, ex);
-                }
+                peta.PerintahGerak(perintahText.getText());
             }
         });
 
         // set contentPane
         Container cp = this.getContentPane();
-        if (tempatPanel != null) {
-            cp.add(getTempatPanel(), BorderLayout.CENTER);
+        if (peta != null) {
+            cp.add(peta, BorderLayout.CENTER);
         }
         cp.add(southPanel, BorderLayout.SOUTH);
 
         // set visible= true
         this.setVisible(true);
     }
-
-    /**
-     * @return the tempatPanel
-     */
-    public TempatPanel getTempatPanel() {
-        return tempatPanel;
-    }
-
-    /**
-     * @param tempatPanel the tempatPanel to set
-     */
-    public void setTempatPanel(TempatPanel tempatPanel) {
-        this.tempatPanel = tempatPanel;
-    }
-
 }

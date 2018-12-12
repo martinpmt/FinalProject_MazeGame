@@ -5,274 +5,79 @@
  */
 package Model;
 
-import java.awt.Color;
+import java.awt.Image;
 
 /**
  *
- * @author user only
+ * @author Aweng
  */
 public class Sel {
 
-    //baris sama dengan posisiY
-    private int baris;
-    //kolom sama dengan posisiX
-    private int kolom;
-    //untuk menentukan besarkan sel didalam panel.
-    private int lebarSel = 25;
-    private int tinggiSel = 25;
+    private int posisiX;
+    private int posisiY;
+    private Image image;//untuk menset gambar dalam pixel posisi xy
 
-    private char nilai;
+    private int Jarak=20;//jika sudah menentukan jarak/pixel 20 maka semua gambar harus di set 20x20 pixel, dan jarak harus sama dengan dikelas Peta
 
-    private Color warna;
-
-    /**
-     *
-     */
-    public Sel() {
+    public Sel(int x, int y) {
+        this.posisiX = x;
+        this.posisiY = y;
     }
 
-    /**
-     *
-     * @param baris
-     * @param kolom
-     * @param nilai
-     */
-    public Sel(int baris, int kolom, char nilai) {
-        this.baris = baris;
-        this.kolom = kolom;
-        this.nilai = nilai;
+    public int getPosisiX() {
+        return posisiX;
     }
 
-    /**
-     *
-     * @param baris
-     * @param kolom
-     * @param nilai
-     * @param warna
-     */
-    public Sel(int baris, int kolom, char nilai, Color warna) {
-        this.baris = baris;
-        this.kolom = kolom;
-        this.nilai = nilai;
-        this.warna = warna;
+    public void setPosisiX(int posisiX) {
+        this.posisiX = posisiX;
     }
 
-    /**
-     *
-     * @param baris
-     * @param kolom
-     * @param lebarSel
-     * @param tinggiSel
-     * @param nilai
-     * @param warna
-     */
-    public Sel(int baris, int kolom, int lebarSel, int tinggiSel, char nilai, Color warna) {
-        this.baris = baris;
-        this.kolom = kolom;
-        this.lebarSel = lebarSel;
-        this.tinggiSel = tinggiSel;
-        this.nilai = nilai;
-        this.warna = warna;
+    public int getPosisiY() {
+        return posisiY;
     }
 
-    /**
-     *
-     * @return
-     */
-    public int getBaris() {
-        return baris;
+    public void setPosisiY(int posisiY) {
+        this.posisiY = posisiY;
     }
 
-    /**
-     *
-     * @param baris
-     */
-    public void setBaris(int baris) {
-        this.baris = baris;
+    public Image getImage() {
+        return image;
     }
 
-    /**
-     *
-     * @return
-     */
-    public int getKolom() {
-        return kolom;
+    public void setImage(Image image) {
+        this.image = image;
     }
 
-    /**
-     *
-     * @param kolom
-     */
-    public void setKolom(int kolom) {
-        this.kolom = kolom;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public int getLebarSel() {
-        return lebarSel;
-    }
-
-    /**
-     *
-     * @param lebarSel
-     */
-    public void setLebarSel(int lebarSel) {
-        this.lebarSel = lebarSel;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public int getTinggiSel() {
-        return tinggiSel;
-    }
-
-    /**
-     *
-     * @param tinggiSel
-     */
-    public void setTinggiSel(int tinggiSel) {
-        this.tinggiSel = tinggiSel;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public char getNilai() {
-        return nilai;
-    }
-
-    /**
-     *
-     * @param nilai
-     */
-    public void setNilai(char nilai) {
-        this.nilai = nilai;
-    }
-
-    /**
-     *
-     * @return
-     */
-    public Color getWarna() {
-        return warna;
-    }
-
-    /**
-     *
-     * @param warna
-     */
-    public void setWarna(Color warna) {
-        this.warna = warna;
-    }
-
-    /**
-     * Fungsi mengecek sel ada di batas kiri
-     *
-     * @return
-     */
-    public boolean isBatasKiri(Sel posisi) {
-        if (((this.getKolom() - lebarSel) == posisi.getKolom()) && (this.getBaris() == posisi.getBaris())) {
+    public boolean PosisiKiriObjek(Sel Objek) {
+        if (((this.getPosisiX() - Jarak) == Objek.getPosisiX()) && (this.getPosisiY() == Objek.getPosisiY())) {
             return true;
         } else {
             return false;
         }
     }
 
-    /**
-     * Fungsi ceking sel ada di batas kanan
-     *
-     * @return
-     */
-    public boolean isBatasKanan(Sel posisi) {
-        if (((this.getKolom() + lebarSel) == posisi.getKolom()) && (this.getBaris() == posisi.getBaris())) {
+    public boolean PosisiKananObjek(Sel Objek) {
+        if (((this.getPosisiX() + Jarak) == Objek.getPosisiX()) && (this.getPosisiY() == Objek.getPosisiY())) {
             return true;
         } else {
             return false;
         }
     }
 
-    /**
-     * Fungsi untuk mengecek sel ada di batas atas
-     *
-     * @return
-     */
-    public boolean isBatasAtas(Sel posisi) {
-        if (((this.getBaris() - tinggiSel) == posisi.getBaris()) && (this.getKolom() == posisi.getBaris())) {
+    public boolean PosisiAtasObjek(Sel Objek) {
+        if (((this.getPosisiY() - Jarak) == Objek.getPosisiY()) && (this.getPosisiX() == Objek.getPosisiX())) {
             return true;
         } else {
             return false;
         }
     }
 
-    /**
-     * Fungsi untuk mengecek sel ada di batas bawah
-     *
-     * @return
-     */
-    public boolean isBatasBawah(Sel posisi) {
-        if (((this.getBaris() + tinggiSel) == posisi.getBaris()) && (this.getKolom() == posisi.getBaris())) {
+    public boolean PosisiBawahObjek(Sel Objek) {
+        if (((this.getPosisiY() + Jarak) == Objek.getPosisiY()) && (this.getPosisiX() == Objek.getPosisiX())) {
             return true;
         } else {
             return false;
         }
-    }
-
-    /**
-     * Fungsi untuk menggeser sel ke kanan
-     */
-    public void geserKiri(int kolom, int baris) {
-        //bergerak kiri atau kanan, tergantung nilai x jika negative maka ke kiri, positive maka ke kanan
-        int posisiKolom = this.getKolom() + kolom;
-        //bergerak atas atau bawah, tergantung nilai y jika negative maka ke atas, positive maka ke bawah
-        int posisiBaris = this.getBaris() + baris;
-
-        this.setKolom(posisiKolom);
-        this.setBaris(posisiBaris);
-    }
-
-    /**
-     * Fungsi untuk menggeser sel ke kanan
-     */
-    public void geserKanan(int kolom, int baris) {
-        //bergerak kiri atau kanan, tergantung nilai x jika negative maka ke kiri, positive maka ke kanan
-        int posisiKolom = this.getKolom() + kolom;
-        //bergerak atas atau bawah, tergantung nilai y jika negative maka ke atas, positive maka ke bawah
-        int posisiBaris = this.getBaris() + baris;
-
-        this.setKolom(posisiKolom);
-        this.setBaris(posisiBaris);
-    }
-
-    /**
-     * Fungsi untuk geser atas
-     */
-    public void geserAtas(int kolom, int baris) {
-        //bergerak kiri atau kanan, tergantung nilai x jika negative maka ke kiri, positive maka ke kanan
-        int posisiKolom = this.getKolom() + kolom;
-        //bergerak atas atau bawah, tergantung nilai y jika negative maka ke atas, positive maka ke bawah
-        int posisiBaris = this.getBaris() + baris;
-
-        this.setKolom(posisiKolom);
-        this.setBaris(posisiBaris);
-    }
-
-    /**
-     * Fungsi untuk geser bawah
-     */
-    public void geserBawah(int kolom, int baris) {
-        //bergerak kiri atau kanan, tergantung nilai x jika negative maka ke kiri, positive maka ke kanan
-        int posisiKolom = this.getKolom() + kolom;
-        //bergerak atas atau bawah, tergantung nilai y jika negative maka ke atas, positive maka ke bawah
-        int posisiBaris = this.getBaris() + baris;
-
-        this.setKolom(posisiKolom);
-        this.setBaris(posisiBaris);
     }
 
 }

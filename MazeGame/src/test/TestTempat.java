@@ -6,7 +6,7 @@
 package test;
 
 import javax.swing.JFileChooser;
-import Model.Tempat;
+import Model.Peta;
 
 /**
  *
@@ -17,19 +17,18 @@ public class TestTempat {
     public static void main(String[] args) {
         JFileChooser jf = new JFileChooser();
         int returnVal = jf.showOpenDialog(null);
-        Tempat tempat = new Tempat();
+       Peta peta;
         if (returnVal == JFileChooser.APPROVE_OPTION) {
-            tempat.bacaKonfigurasiPeta(jf.getSelectedFile());
+           peta=new Peta(jf.getSelectedFile());
             // menampilkan atribut 'isi' dari kelas Tempat
             System.out.println("Isi peta = ");
-            System.out.println(tempat.getIsi());
-            if(tempat.getDaftarSel()!=null){
-                for (int i = 0; i < tempat.getDaftarSel().size(); i++) {
+            System.out.println(peta.getIsi());
+            if(peta.getSel()!=null){
+                for (int i = 0; i < peta.getSel().size(); i++) {
                     // menampilkan nilai posisiX,posisiY dan nilai
                     System.out.println(
-                            tempat.getDaftarSel().get(i).getBaris()+","
-                            +tempat.getDaftarSel().get(i).getKolom()+","
-                            +tempat.getDaftarSel().get(i).getNilai());
+                            peta.getSel().get(i).getPosisiX()+","
+                            +peta.getSel().get(i).getPosisiY()+",");
                     
                 }
             }
