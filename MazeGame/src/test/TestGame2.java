@@ -36,9 +36,6 @@ public class TestGame2 {
                 }
             }
         }
-        // Set ukuran tempat
-        Peta.batasKanan = 410;
-        Peta.batasBawah = 410;
         // buat gameFrame dan tambahkan tempatPanel ke gameFrame
         GameFrame game = new GameFrame("My Game", peta);
     }

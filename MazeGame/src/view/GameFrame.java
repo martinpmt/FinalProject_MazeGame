@@ -23,12 +23,14 @@ public class GameFrame extends JFrame {
 
     private JLabel perintahlabel;
     private JTextField perintahText;
+    private JTextArea perintahTextHistory;
     private JButton okButton;
 
     private JMenuBar menuBar;
     private JMenu gameMenu;
     private JMenuItem exitMenuItem;
     private JMenuItem bacaKonfigurasiMenuItem;
+    private JMenuItem simpanKonfigurasiMenuItem;
 
     public GameFrame(String title) {
         this.setTitle(title);
@@ -45,7 +47,7 @@ public class GameFrame extends JFrame {
 
     public void init() {
         // set ukuran dan layout
-        this.setSize(460, 550);
+        this.setSize(290, 380);
         this.setLayout(new BorderLayout());
 
         // set menu Bar
@@ -53,7 +55,9 @@ public class GameFrame extends JFrame {
         gameMenu = new JMenu("Game");
         exitMenuItem = new JMenuItem("Keluar");
         bacaKonfigurasiMenuItem = new JMenuItem("Baca");
+        simpanKonfigurasiMenuItem = new JMenuItem("Simpan");
         gameMenu.add(bacaKonfigurasiMenuItem);
+        gameMenu.add(simpanKonfigurasiMenuItem);
         gameMenu.add(exitMenuItem);
         menuBar.add(gameMenu);
         setJMenuBar(menuBar);
@@ -72,27 +76,44 @@ public class GameFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JFileChooser jf = new JFileChooser();
+                Peta peta = null;
                 int returnVal = jf.showOpenDialog(null);
                 if (returnVal == JFileChooser.APPROVE_OPTION) {
-                    Peta tempat = new Peta(jf.getSelectedFile());
+                    boolean check = false;
+                    if (!check) {
+                        peta = new Peta(jf.getSelectedFile());
+                        check = true;
+                    } else {
+                        peta.bacaObjekKonfigurasi(jf.getSelectedFile());
+                    }
                     // menampilkan atribut 'isi' dari kelas Tempat
                     System.out.println("\nIsi peta Baru = ");
-                    System.out.println(tempat.getIsi());
-                    if (tempat.getSel() != null) {
-                        for (int i = 0; i < tempat.getSel().size(); i++) {
+                    System.out.println(peta.getIsi());
+                    if (peta.getSel() != null) {
+                        for (int i = 0; i < peta.getSel().size(); i++) {
                             // menampilkan nilai posisiX,posisiY dan nilai
                             System.out.println(
-                                    tempat.getSel().get(i).getPosisiX() + ","
-                                    + tempat.getSel().get(i).getPosisiY() + ",");
+                                    peta.getSel().get(i).getPosisiX() + ","
+                                    + peta.getSel().get(i).getPosisiY() + ",");
                         }
                     }
                 }
-                // Set ukuran tempat
-                Peta.batasKanan = 410;
-                Peta.batasBawah = 410;
                 // buat tempatPanel dan tambahkan tempat ke tempatPanel
                 peta = new Peta();
                 init();
+            }
+        });
+
+        simpanKonfigurasiMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JFileChooser fc = new JFileChooser();
+                fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
+                int returnVal = fc.showSaveDialog(null);
+                Peta peta = new Peta();
+                if (returnVal == JFileChooser.APPROVE_OPTION) {
+                    peta.simpanObjekKonfigurasi(fc.getSelectedFile());
+                }
             }
         });
 
@@ -103,7 +124,7 @@ public class GameFrame extends JFrame {
         this.perintahlabel = new JLabel("Perintah");
         southPanel.add(perintahlabel);
 
-        this.perintahText = new JTextField(20);
+        this.perintahText = new JTextField(10);
         southPanel.add(perintahText);
 
         this.okButton = new JButton("OK");
@@ -115,7 +136,11 @@ public class GameFrame extends JFrame {
                 peta.PerintahGerak(perintahText.getText());
             }
         });
-
+        this.perintahTextHistory = new JTextArea();
+        southPanel.add(perintahTextHistory);
+        
+        
+        
         // set contentPane
         Container cp = this.getContentPane();
         if (peta != null) {

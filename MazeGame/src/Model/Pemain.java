@@ -19,7 +19,7 @@ public class Pemain extends Sel {
 
     public Pemain(int x, int y, char nilai) {
         super(x, y);//Mengakses constructor superclass (pixel) oleh subclass (Pemain) dan lsg di set nilai xy Pemain 
-        URL loc = this.getClass().getResource("/Image/pemain.gif");
+        URL loc = this.getClass().getResource("/image/pemain.gif");
         ImageIcon iia = new ImageIcon(loc);
         Image image = iia.getImage();
         this.setImage(image);

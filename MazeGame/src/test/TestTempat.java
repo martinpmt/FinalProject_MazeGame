@@ -17,19 +17,19 @@ public class TestTempat {
     public static void main(String[] args) {
         JFileChooser jf = new JFileChooser();
         int returnVal = jf.showOpenDialog(null);
-        Peta peta;
+       Peta peta;
         if (returnVal == JFileChooser.APPROVE_OPTION) {
-            peta = new Peta(jf.getSelectedFile());
+           peta=new Peta(jf.getSelectedFile());
             // menampilkan atribut 'isi' dari kelas Tempat
             System.out.println("Isi peta = ");
             System.out.println(peta.getIsi());
-            if (peta.getSel() != null) {
+            if(peta.getSel()!=null){
                 for (int i = 0; i < peta.getSel().size(); i++) {
                     // menampilkan nilai posisiX,posisiY dan nilai
                     System.out.println(
-                            peta.getSel().get(i).getPosisiX() + ","
-                            + peta.getSel().get(i).getPosisiY() + ",");
-
+                            peta.getSel().get(i).getPosisiX()+","
+                            +peta.getSel().get(i).getPosisiY()+",");
+                    
                 }
             }
         }

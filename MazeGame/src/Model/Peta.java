@@ -12,7 +12,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -38,9 +42,6 @@ public class Peta extends JPanel {
     private int jarak = 20;//untuk menentukan besarkan pixel/jarak space gambar didalam panel
     private String isi;
     private boolean complated = false;
-
-    public static int batasKanan;
-    public static int batasBawah;
 
     private File Alamatpeta;//digunakan untuk merestart level
     private ArrayList Allperintah = new ArrayList();//menyimpan semua perintah yang dimasukkan
@@ -79,17 +80,48 @@ public class Peta extends JPanel {
         this.sel.add(finish);
     }
 
+    public void simpanObjekKonfigurasi(File file) {
+        FileOutputStream fos = null;
+        ObjectOutputStream oos = null;
+        try {
+            fos = new FileOutputStream(file);
+            oos = new ObjectOutputStream(fos);
+            oos.writeObject(file);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Peta.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Peta.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void bacaObjekKonfigurasi(File file) {
+        FileInputStream fis = null;
+        ObjectInputStream ois = null;
+        try {
+            fis = new FileInputStream(file);
+            ois = new ObjectInputStream(fis);
+            Peta peta=(Peta) ois.readObject();
+            this.setIsi(peta.getIsi());
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Sel.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Sel.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Sel.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     private void bacaKonfigurasi(File file) {
         try {
             if (file != null) {
-                FileInputStream input = new FileInputStream(file);
+                FileInputStream fis = new FileInputStream(file);
                 Alamatpeta = file;
                 int posisiX = 0;
                 int posisiY = 0;
                 Tembok wall;
                 String isi = "";
                 int data;
-                while ((data = input.read()) != -1) {
+                while ((data = fis.read()) != -1) {
                     isi = isi + (char) data;
                     if ((char) data != '\n') {
                         if ((char) data == TEMBOK) {
@@ -138,7 +170,7 @@ public class Peta extends JPanel {
         if (complated) {
             g.setColor(Color.ORANGE);
             g.setFont(new Font("Serif", Font.BOLD, 48));
-            g.drawString("Winner", 150, 300);
+            g.drawString("Winner", 50, 80);
         }
     }
 
@@ -151,7 +183,7 @@ public class Peta extends JPanel {
     }
 
     public void PerintahGerak(String input) {
-        String in[] = input.split(" ");
+        String in[] = input.split("");
         if (in.length > 2) {
             JOptionPane.showMessageDialog(null, "Jumlah kata lebih dari 2");
         } else if (in.length == 2) {
@@ -268,4 +300,5 @@ public class Peta extends JPanel {
         }
         return bantu;
     }
+
 }
