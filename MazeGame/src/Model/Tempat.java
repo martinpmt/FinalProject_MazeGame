@@ -41,7 +41,7 @@ public class Tempat extends JPanel {
     private final char FINISH = 'O';
     private int lebar = 0;
     private int tinggi = 0;
-    private int jarak = 20;//untuk menentukan besarkan pixel/jarak space gambar didalam panel
+    private int jarak = 30;//untuk menentukan besarkan pixel/jarak space gambar didalam panel
     private String isi;
     private boolean completed = false;
     
