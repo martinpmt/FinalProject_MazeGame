@@ -29,7 +29,7 @@ import javax.swing.JPanel;
  * @author Aweng
  */
 public class Tempat extends JPanel {
-
+    
     private ArrayList<Tembok> tembok = new ArrayList<>();//menyimpan data tembok
     private Finish finish;
     private ArrayList<Sel> sel = new ArrayList<>();//menyimpan data tembok,finish,pemain
@@ -44,58 +44,56 @@ public class Tempat extends JPanel {
     private int jarak = 20;//untuk menentukan besarkan pixel/jarak space gambar didalam panel
     private String isi;
     private boolean completed = false;
-
+    
     private File Alamatpeta;//digunakan untuk merestart level
     private ArrayList Allperintah = new ArrayList();//menyimpan semua perintah yang dimasukkan
 
     public Tempat() {
         setFocusable(true);
     }
-
+    
     public Tempat(File file) {
         bacaKonfigurasi(file);
     }
-
+    
     public String getIsi() {
         return isi;
     }
-
+    
     public void setIsi(String isi) {
         this.isi = isi;
     }
-
+    
     public ArrayList<Tembok> getTembok() {
         return tembok;
     }
-
+    
     public void setTembok(Tembok tembok) {
         this.tembok.add(tembok);
     }
-
+    
     public ArrayList<Sel> getSel() {
         return sel;
     }
-
+    
     public void setSel(Pemain pemain, ArrayList<Tembok> tembok, Finish finish) {
         this.sel.add(pemain);
         this.sel.addAll(tembok);
         this.sel.add(finish);
     }
-
+    
     public void simpanObjekKonfigurasi(File file) {
         FileOutputStream fos = null;
-        ObjectOutputStream oos = null;
         try {
             fos = new FileOutputStream(file);
-            oos = new ObjectOutputStream(fos);
-            oos.writeObject(file);
+            fos.write(isi.getBytes());
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Tempat.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(Tempat.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
     public void bacaObjekKonfigurasi(File file) {
         FileInputStream fis = null;
         ObjectInputStream ois = null;
@@ -112,7 +110,7 @@ public class Tempat extends JPanel {
             Logger.getLogger(Sel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
     private void bacaKonfigurasi(File file) {
         try {
             if (file != null) {
@@ -148,12 +146,12 @@ public class Tempat extends JPanel {
                 }
                 setIsi(isi);
             }
-
+            
         } catch (IOException ex) {
             Logger.getLogger(Tempat.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);	   // Hapus background
@@ -175,15 +173,15 @@ public class Tempat extends JPanel {
             g.drawString("Winner", 50, 80);
         }
     }
-
+    
     public int getLebar() {
         return this.lebar;
     }
-
+    
     public int getTinggi() {
         return this.tinggi;
     }
-
+    
     public void PerintahGerak(String input) {
         String in[] = input.split(" ");
         if (in[0].equalsIgnoreCase("UNDO") && in[1].matches("[123456789]")) {
@@ -200,7 +198,7 @@ public class Tempat extends JPanel {
                                 pemain.Gerak(0, jarak);
                                 repaint();
                             }
-
+                            
                         }
                     } else if (un[0].equalsIgnoreCase("d")) {
                         for (int i = 0; i < Integer.parseInt(String.valueOf(un[1])); i++) {
@@ -246,7 +244,7 @@ public class Tempat extends JPanel {
                         isCompleted();
                         repaint();
                     }
-
+                    
                 }
             } else if (in[0].equalsIgnoreCase("d")) {
                 for (int i = 0; i < Integer.parseInt(String.valueOf(in[1])); i++) {
@@ -283,7 +281,7 @@ public class Tempat extends JPanel {
             JOptionPane.showMessageDialog(null, "Input Tidak Valid, Silahkan Lihat Keterangan");
         }
     }
-
+    
     private boolean cekPemainNabrakTembok(Sel pemain, String input) {
         boolean bantu = false;
         if (input.equalsIgnoreCase("l")) {
@@ -294,7 +292,7 @@ public class Tempat extends JPanel {
                     break;
                 }
             }
-
+            
         } else if (input.equalsIgnoreCase("r")) {
             for (int i = 0; i < tembok.size(); i++) {
                 Tembok wall = (Tembok) tembok.get(i);//ambil posisi tembok
@@ -322,13 +320,13 @@ public class Tempat extends JPanel {
         }
         return bantu;//default return false
     }
-
+    
     public void isCompleted() {
         if (pemain.getPosisiX() == finish.getPosisiX() && pemain.getPosisiY() == finish.getPosisiY()) {
             completed = true;
         }
     }
-
+    
     public void restartLevel() {
         Allperintah.clear();//hapus semua perintah yang tersimpan
         tembok.clear();//hapus tembok
@@ -337,7 +335,7 @@ public class Tempat extends JPanel {
         bacaKonfigurasi(Alamatpeta);//set ulang gambar peta
         repaint();//gambar ulang
     }
-
+    
     public String getTeksPerintah() {
         String bantu = "";
         for (int i = 0; i < Allperintah.size(); i++) {
@@ -345,5 +343,5 @@ public class Tempat extends JPanel {
         }
         return bantu;
     }
-
+    
 }

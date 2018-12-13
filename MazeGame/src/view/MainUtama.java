@@ -15,7 +15,7 @@ import Model.Tempat;
  *
  * @author Aweng
  */
-public class Sokoban extends javax.swing.JFrame {
+public class MainUtama extends javax.swing.JFrame {
 
     private Tempat tempat;
     private int counter = 0;
@@ -23,7 +23,7 @@ public class Sokoban extends javax.swing.JFrame {
     /**
      * Creates new form Sokoban
      */
-    public Sokoban() {
+    public MainUtama() {
         this.tempat = new Tempat();
         initComponents();
 //        Dimension frame = Toolkit.getDefaultToolkit().getScreenSize();
@@ -177,6 +177,11 @@ public class Sokoban extends javax.swing.JFrame {
         fileMenu.add(openMenuItem);
 
         saveMenuItem.setText("Save");
+        saveMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                saveMenuItemActionPerformed(evt);
+            }
+        });
         fileMenu.add(saveMenuItem);
 
         exitMenuItem.setText("Exit");
@@ -201,7 +206,7 @@ public class Sokoban extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(keteranganLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(48, 48, 48))
+                        .addGap(70, 70, 70))
                     .addGroup(layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
@@ -267,6 +272,17 @@ public class Sokoban extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_exitMenuItemActionPerformed
 
+    private void saveMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveMenuItemActionPerformed
+        // TODO add your handling code here:
+        JFileChooser fChoose = new JFileChooser();
+        fChoose.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        int returnVal = fChoose.showSaveDialog(null);
+        if (returnVal == JFileChooser.APPROVE_OPTION) {
+            tempat.setIsi(tempat.getIsi());
+            tempat.simpanObjekKonfigurasi(fChoose.getSelectedFile());
+        }
+    }//GEN-LAST:event_saveMenuItemActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -285,21 +301,23 @@ public class Sokoban extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Sokoban.class
+            java.util.logging.Logger.getLogger(MainUtama.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
 
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Sokoban.class
+            java.util.logging.Logger.getLogger(MainUtama.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
 
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Sokoban.class
+            java.util.logging.Logger.getLogger(MainUtama.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
 
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Sokoban.class
+            java.util.logging.Logger.getLogger(MainUtama.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
@@ -307,7 +325,7 @@ public class Sokoban extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             @Override
             public void run() {
-                new Sokoban().setVisible(true);
+                new MainUtama().setVisible(true);
             }
         });
     }
