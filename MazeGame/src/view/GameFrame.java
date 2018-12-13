@@ -19,7 +19,7 @@ import Model.*;
  */
 public class GameFrame extends JFrame {
 
-    private Peta peta;
+    private Tempat peta;
 
     private JLabel perintahlabel;
     private JTextField perintahText;
@@ -38,7 +38,7 @@ public class GameFrame extends JFrame {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    public GameFrame(String title, Peta peta) {
+    public GameFrame(String title, Tempat peta) {
         setTitle(title);
         this.peta = peta;
         this.init();
@@ -76,12 +76,12 @@ public class GameFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JFileChooser jf = new JFileChooser();
-                Peta peta = null;
+                Tempat peta = null;
                 int returnVal = jf.showOpenDialog(null);
                 if (returnVal == JFileChooser.APPROVE_OPTION) {
                     boolean check = false;
                     if (!check) {
-                        peta = new Peta(jf.getSelectedFile());
+                        peta = new Tempat(jf.getSelectedFile());
                         check = true;
                     } else {
                         peta.bacaObjekKonfigurasi(jf.getSelectedFile());
@@ -99,7 +99,7 @@ public class GameFrame extends JFrame {
                     }
                 }
                 // buat tempatPanel dan tambahkan tempat ke tempatPanel
-                peta = new Peta();
+                peta = new Tempat();
                 init();
             }
         });
@@ -110,7 +110,7 @@ public class GameFrame extends JFrame {
                 JFileChooser fc = new JFileChooser();
                 fc.setFileSelectionMode(JFileChooser.FILES_ONLY);
                 int returnVal = fc.showSaveDialog(null);
-                Peta peta = new Peta();
+                Tempat peta = new Tempat();
                 if (returnVal == JFileChooser.APPROVE_OPTION) {
                     peta.simpanObjekKonfigurasi(fc.getSelectedFile());
                 }

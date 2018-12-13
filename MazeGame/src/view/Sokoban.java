@@ -9,7 +9,7 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.io.File;
 import javax.swing.JFileChooser;
-import Model.Peta;
+import Model.Tempat;
 
 /**
  *
@@ -17,14 +17,14 @@ import Model.Peta;
  */
 public class Sokoban extends javax.swing.JFrame {
 
-    private Peta peta;
+    private Tempat tempat;
     private int counter = 0;
 
     /**
      * Creates new form Sokoban
      */
     public Sokoban() {
-        this.peta = new Peta();
+        this.tempat = new Tempat();
         initComponents();
 //        Dimension frame = Toolkit.getDefaultToolkit().getScreenSize();
 //        int lebar = frame.width;
@@ -59,6 +59,9 @@ public class Sokoban extends javax.swing.JFrame {
         outputTextArea = new javax.swing.JTextArea();
         jumlahPerintah = new javax.swing.JLabel();
         jumlahPerintahText = new javax.swing.JTextField();
+        keteranganLabel = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
         jMenuBar1 = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         openMenuItem = new javax.swing.JMenuItem();
@@ -154,6 +157,15 @@ public class Sokoban extends javax.swing.JFrame {
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
+        keteranganLabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        keteranganLabel.setText("HOW TO PLAY");
+
+        jTextArea1.setEditable(false);
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jTextArea1.setText("PERINTAH\nU = up / naik\nD = down / turun\nR = right / kanan\nL = left / kiri\nInputan 2 karakter\nundo x = ulangi x langkah terakhir\n\nCONTOH\nU 5 = naik ke atas 5 langkah\nR 1 = geser ke kanan 1 langkah\nundo 1 = ulangi 1 langkah terakhir");
+        jScrollPane2.setViewportView(jTextArea1);
+
         fileMenu.setText("File");
 
         openMenuItem.setText("Open");
@@ -183,11 +195,26 @@ public class Sokoban extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(keteranganLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(48, 48, 48))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(keteranganLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -195,12 +222,13 @@ public class Sokoban extends javax.swing.JFrame {
 
     private void perintahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_perintahActionPerformed
         // TODO add your handling code here:
-        peta.PerintahGerak(perintah.getText());
-        outputTextArea.setText(peta.getTeksPerintah());
+        tempat.PerintahGerak(perintah.getText());
+        outputTextArea.setText(tempat.getTeksPerintah());
         perintah.setText("");
         counter++;
         String x = String.valueOf(counter);
         jumlahPerintahText.setText(x);
+        tempat.isCompleted();
     }//GEN-LAST:event_perintahActionPerformed
 
     private void openMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openMenuItemActionPerformed
@@ -209,18 +237,18 @@ public class Sokoban extends javax.swing.JFrame {
         JFileChooser jf = new JFileChooser();
         int returnVal = jf.showOpenDialog(null);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
-            peta = new Peta(jf.getSelectedFile());
-            PixelPanel.add(peta);
-            peta.setSize(280, 280);
+            tempat = new Tempat(jf.getSelectedFile());
+            PixelPanel.add(tempat);
+            tempat.setSize(280, 280);
             // menampilkan atribut 'isi' dari kelas Tempat
             System.out.println("\nIsi peta Baru = ");
-            System.out.println(peta.getIsi());
-            if (peta.getSel() != null) {
-                for (int i = 0; i < peta.getSel().size(); i++) {
+            System.out.println(tempat.getIsi());
+            if (tempat.getSel() != null) {
+                for (int i = 0; i < tempat.getSel().size(); i++) {
                     // menampilkan nilai posisiX,posisiY dan nilai
                     System.out.println(
-                            peta.getSel().get(i).getPosisiX() + ","
-                            + peta.getSel().get(i).getPosisiY() + ",");
+                            tempat.getSel().get(i).getPosisiX() + ","
+                            + tempat.getSel().get(i).getPosisiY() + ",");
                 }
             }
         }
@@ -228,9 +256,9 @@ public class Sokoban extends javax.swing.JFrame {
         int lebar = PixelPanel.getWidth();
         int tinggi = PixelPanel.getHeight();
         //mendapatkan titik koordinat x,y
-        int x = (lebar - peta.getWidth()) / 2;
-        int y = (tinggi - peta.getHeight()) / 2;
-        peta.setLocation(x, y);
+        int x = (lebar - tempat.getWidth()) / 2;
+        int y = (tinggi - tempat.getHeight()) / 2;
+        tempat.setLocation(x, y);
 //        // buat tempatPanel dan tambahkan tempat ke tempatPanel
 //        peta = new Peta();
     }//GEN-LAST:event_openMenuItemActionPerformed
@@ -295,8 +323,11 @@ public class Sokoban extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextArea jTextArea1;
     private javax.swing.JLabel jumlahPerintah;
     private javax.swing.JTextField jumlahPerintahText;
+    private javax.swing.JLabel keteranganLabel;
     private javax.swing.JMenuItem openMenuItem;
     private javax.swing.JTextArea outputTextArea;
     private javax.swing.JTextField perintah;
