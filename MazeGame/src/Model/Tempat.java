@@ -248,7 +248,7 @@ public class Tempat extends JPanel {
             } else {
                 JOptionPane.showMessageDialog(null, "Sudah Tidak Ada Yang Bisa di Undo, Silahkan Masukan Perintah Terlebih Dahulu");
             }
-        } else if (in[0].matches("[udrl]") && in[1].matches("[123456789]") && in.length == 2) {
+        } else if (in[0].matches("[udrl]") || in[0].matches("[UDRL]") && in[1].matches("[123456789]") && in.length == 2) {
             undo.addLast(input);
             Allperintah.add(input);
             if (in[0].equalsIgnoreCase("u")) {
@@ -300,7 +300,7 @@ public class Tempat extends JPanel {
 
     private boolean cekPemainNabrakTembok(Sel pemain, String input) {
         boolean bantu = false;
-        if (input.equalsIgnoreCase("l")) {
+        if (input.equals("l")) {
             for (int i = 0; i < tembok.size(); i++) {
                 Tembok wall = (Tembok) tembok.get(i);//ambil posisi tembok
                 if (pemain.PosisiKiriObjek(wall)) {
@@ -309,7 +309,7 @@ public class Tempat extends JPanel {
                 }
             }
 
-        } else if (input.equalsIgnoreCase("r")) {
+        } else if (input.equals("r")) {
             for (int i = 0; i < tembok.size(); i++) {
                 Tembok wall = (Tembok) tembok.get(i);//ambil posisi tembok
                 if (pemain.PosisiKananObjek(wall)) {
@@ -317,7 +317,7 @@ public class Tempat extends JPanel {
                     break;
                 }
             }
-        } else if (input.equalsIgnoreCase("u")) {
+        } else if (input.equals("u")) {
             for (int i = 0; i < tembok.size(); i++) {
                 Tembok wall = (Tembok) tembok.get(i);//ambil posisi tembok
                 if (pemain.PosisiAtasObjek(wall)) {
@@ -325,7 +325,7 @@ public class Tempat extends JPanel {
                     break;
                 }
             }
-        } else if (input.equalsIgnoreCase("d")) {
+        } else if (input.equals("d")) {
             for (int i = 0; i < tembok.size(); i++) {
                 Tembok wall = (Tembok) tembok.get(i);//ambil posisi tembok
                 if (pemain.PosisiBawahObjek(wall)) {
@@ -338,7 +338,7 @@ public class Tempat extends JPanel {
     }
 
     public void isCompleted() {
-        if (pemain.getPosisiX() == finish.getPosisiX() && pemain.getPosisiY() == finish.getPosisiY()) {
+        if (pemain.getLebar() == finish.getLebar() && pemain.getTinggi() == finish.getTinggi()) {
             completed = true;
         }
     }
