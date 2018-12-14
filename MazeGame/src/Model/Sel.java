@@ -13,6 +13,8 @@ import java.awt.Image;
  */
 public class Sel {
 
+    private int lebar;
+    private int tinggi;
     private int posisiX;
     private int posisiY;
     private char nilai;
@@ -23,6 +25,22 @@ public class Sel {
     public Sel(int x, int y) {
         this.posisiX = x;
         this.posisiY = y;
+    }
+
+    public int getLebar() {
+        return lebar;
+    }
+
+    public void setLebar(int lebar) {
+        this.lebar = lebar;
+    }
+
+    public int getTinggi() {
+        return tinggi;
+    }
+
+    public void setTinggi(int tinggi) {
+        this.tinggi = tinggi;
     }
 
     public int getPosisiX() {
@@ -58,7 +76,7 @@ public class Sel {
     }
 
     public boolean PosisiKiriObjek(Sel Objek) {
-        if (((this.getPosisiX() - Jarak) == Objek.getPosisiX()) && (this.getPosisiY() == Objek.getPosisiY())) {
+        if (((this.getLebar() - Jarak) == Objek.getLebar()) && (this.getTinggi() == Objek.getTinggi())) {
             return true;
         } else {
             return false;
@@ -66,7 +84,7 @@ public class Sel {
     }
 
     public boolean PosisiKananObjek(Sel Objek) {
-        if (((this.getPosisiX() + Jarak) == Objek.getPosisiX()) && (this.getPosisiY() == Objek.getPosisiY())) {
+        if (((this.getLebar() + Jarak) == Objek.getLebar()) && (this.getTinggi() == Objek.getTinggi())) {
             return true;
         } else {
             return false;
@@ -74,7 +92,7 @@ public class Sel {
     }
 
     public boolean PosisiAtasObjek(Sel Objek) {
-        if (((this.getPosisiY() - Jarak) == Objek.getPosisiY()) && (this.getPosisiX() == Objek.getPosisiX())) {
+        if (((this.getTinggi() - Jarak) == Objek.getTinggi()) && (this.getLebar() == Objek.getLebar())) {
             return true;
         } else {
             return false;
@@ -82,7 +100,7 @@ public class Sel {
     }
 
     public boolean PosisiBawahObjek(Sel Objek) {
-        if (((this.getPosisiY() + Jarak) == Objek.getPosisiY()) && (this.getPosisiX() == Objek.getPosisiX())) {
+        if (((this.getTinggi() + Jarak) == Objek.getTinggi()) && (this.getLebar() == Objek.getLebar())) {
             return true;
         } else {
             return false;

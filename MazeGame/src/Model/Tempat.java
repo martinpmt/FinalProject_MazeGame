@@ -39,8 +39,8 @@ public class Tempat extends JPanel {
     private final char PEMAIN = '@';
     private final char KOSONG = '.';
     private final char FINISH = 'O';
-    private int lebar = 0;
-    private int tinggi = 0;
+    private int lebarTempat = 0;
+    private int tinggiTempat = 0;
     private int jarak = 30;//untuk menentukan besarkan pixel/jarak space gambar didalam panel
     private String isi;
     private boolean completed = false;
@@ -116,6 +116,8 @@ public class Tempat extends JPanel {
             if (file != null) {
                 FileInputStream fis = new FileInputStream(file);
                 Alamatpeta = file;
+                int lebar = 0;
+                int tinggi = 0;
                 int posisiX = 0;
                 int posisiY = 0;
                 Tembok wall;
@@ -125,24 +127,30 @@ public class Tempat extends JPanel {
                     isi = isi + (char) data;
                     if ((char) data != '\n') {
                         if ((char) data == TEMBOK) {
-                            wall = new Tembok(posisiX, posisiY, (char) data);
+                            wall = new Tembok(posisiX, posisiY, lebar, tinggi, (char) data);
                             setTembok(wall);
-                            posisiX += jarak;
+                            posisiX++;
+                            lebar += jarak;
                         } else if ((char) data == PEMAIN) {
-                            pemain = new Pemain(posisiX, posisiY, (char) data);
-                            posisiX += jarak;
+                            pemain = new Pemain(posisiX, posisiY, lebar, tinggi, (char) data);
+                            posisiX++;
+                            lebar += jarak;
                         } else if ((char) data == KOSONG) {
-                            posisiX += jarak;
+                            posisiX++;
+                            lebar += jarak;
                         } else if ((char) data == FINISH) {
-                            finish = new Finish(posisiX, posisiY, (char) data);
-                            posisiX += jarak;
+                            finish = new Finish(posisiX, posisiY, lebar, tinggi, (char) data);
+                            posisiX++;
+                            lebar += jarak;
                         }
                     } else {
-                        posisiY += jarak;
-                        lebar = posisiX;
+                        posisiY++;
+                        tinggi += jarak;
+                        lebarTempat = lebar;
                         posisiX = 0;
+                        lebar = 0;
                     }
-                    tinggi = posisiY;
+                    tinggiTempat = tinggi;
                 }
                 setIsi(isi);
                 setSel(pemain, tembok, finish);
@@ -158,12 +166,12 @@ public class Tempat extends JPanel {
         super.paintComponent(g);	   // Hapus background
         // Tempat Gambar:
         g.setColor(new Color(255, 255, 255));//set panel warna putih
-        g.fillRect(0, 0, this.getLebar(), this.getTinggi());// set tinggi lebar sesuai konfigurasi
+        g.fillRect(0, 0, this.getLebarTempat(), this.getTinggiTempat());// set tinggi lebar sesuai konfigurasi
         if (!completed) {
             for (int i = 0; i < sel.size(); i++) {
                 if (sel.get(i) != null) {
                     Sel item = (Sel) sel.get(i);//map diterjemahkan dalam kelas pixel.
-                    g.drawImage(item.getImage(), item.getPosisiX(), item.getPosisiY(), this);//proses gambar di panel
+                    g.drawImage(item.getImage(), item.getLebar(), item.getTinggi(), this);//proses gambar di panel
                 }
             }
         }
@@ -174,12 +182,20 @@ public class Tempat extends JPanel {
         }
     }
 
-    public int getLebar() {
-        return this.lebar;
+    public int getLebarTempat() {
+        return lebarTempat;
     }
 
-    public int getTinggi() {
-        return this.tinggi;
+    public void setLebarTempat(int lebarTempat) {
+        this.lebarTempat = lebarTempat;
+    }
+
+    public int getTinggiTempat() {
+        return tinggiTempat;
+    }
+
+    public void setTinggiTempat(int tinggiTempat) {
+        this.tinggiTempat = tinggiTempat;
     }
 
     public void PerintahGerak(String input) {

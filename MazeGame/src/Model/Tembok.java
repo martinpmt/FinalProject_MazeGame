@@ -15,15 +15,39 @@ import javax.swing.ImageIcon;
  */
 public class Tembok extends Sel {
 
+    private int lebar;
+    private int tinggi;
     private char nilai;
 
-    public Tembok(int x, int y, char nilai) {
+    public Tembok(int x, int y, int lebar, int tinggi, char nilai) {
         super(x, y);//Mengakses constructor superclass (pixel) oleh subclass (Tembok) dan lsg di set nilai xy Tembok 
         URL loc = this.getClass().getResource("/Image/tembokx.jpg");
         ImageIcon wall = new ImageIcon(loc);
         Image image = wall.getImage();
         this.setImage(image);
+        this.lebar = lebar;
+        this.tinggi = tinggi;
         this.nilai = nilai;
+    }
+
+    @Override
+    public int getLebar() {
+        return lebar;
+    }
+
+    @Override
+    public void setLebar(int lebar) {
+        this.lebar = lebar;
+    }
+
+    @Override
+    public int getTinggi() {
+        return tinggi;
+    }
+
+    @Override
+    public void setTinggi(int tinggi) {
+        this.tinggi = tinggi;
     }
 
     @Override

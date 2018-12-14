@@ -255,7 +255,6 @@ public class MainUtama extends javax.swing.JFrame {
 
     private void openMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_openMenuItemActionPerformed
         // TODO add your handling code here:
-//        tekarea.setText(null);
         JFileChooser jf = new JFileChooser();
         int returnVal = jf.showOpenDialog(null);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
@@ -272,8 +271,8 @@ public class MainUtama extends javax.swing.JFrame {
                 for (int i = 0; i < tempat.getSel().size(); i++) {
                     // menampilkan nilai posisiX,posisiY dan nilai
                     System.out.println(
-                            tempat.getSel().get(i).getPosisiX() + ","
-                            + tempat.getSel().get(i).getPosisiY() + ","
+                            tempat.getSel().get(i).getPosisiY() + ","
+                            + tempat.getSel().get(i).getPosisiX() + ","
                             + tempat.getSel().get(i).getNilai());
                 }
             }
@@ -324,6 +323,7 @@ public class MainUtama extends javax.swing.JFrame {
         // TODO add your handling code here:
         resetSemua();
     }//GEN-LAST:event_resetButtonActionPerformed
+
     private void resetSemua() {
         tempat.restartLevel();
         perintah.setText("");
