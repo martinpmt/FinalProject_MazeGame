@@ -263,7 +263,7 @@ public class MainUtama extends javax.swing.JFrame {
             tempat = new Tempat(jf.getSelectedFile());
             PixelPanel.add(tempat);
             tempat.setSize(450, 428);
-            resetButtonActionPerformed(null);
+            resetSemua();
             // menampilkan atribut 'isi' dari kelas Tempat
             System.out.println("\nIsi peta Baru = ");
             System.out.println(tempat.getIsi());
@@ -322,12 +322,15 @@ public class MainUtama extends javax.swing.JFrame {
 
     private void resetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetButtonActionPerformed
         // TODO add your handling code here:
+        resetSemua();
+    }//GEN-LAST:event_resetButtonActionPerformed
+    private void resetSemua() {
         tempat.restartLevel();
         perintah.setText("");
         outputTextArea.setText("");
         jumlahPerintahText.setText("");
         counter = 0;
-    }//GEN-LAST:event_resetButtonActionPerformed
+    }
 
     /**
      * @param args the command line arguments
