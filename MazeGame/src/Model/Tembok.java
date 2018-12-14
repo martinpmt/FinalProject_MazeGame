@@ -26,10 +26,12 @@ public class Tembok extends Sel {
         this.nilai = nilai;
     }
 
+    @Override
     public char getNilai() {
         return nilai;
     }
 
+    @Override
     public void setNilai(char nilai) {
         this.nilai = nilai;
     }

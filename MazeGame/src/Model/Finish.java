@@ -26,10 +26,12 @@ public class Finish extends Sel {
         this.setNilai(nilai);
     }
 
+    @Override
     public char getNilai() {
         return nilai;
     }
 
+    @Override
     public void setNilai(char nilai) {
         this.nilai = nilai;
     }

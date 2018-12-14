@@ -264,12 +264,14 @@ public class MainUtama extends javax.swing.JFrame {
             // menampilkan atribut 'isi' dari kelas Tempat
             System.out.println("\nIsi peta Baru = ");
             System.out.println(tempat.getIsi());
+            System.out.println("\nKoordinat titik");
             if (tempat.getSel() != null) {
                 for (int i = 0; i < tempat.getSel().size(); i++) {
                     // menampilkan nilai posisiX,posisiY dan nilai
                     System.out.println(
                             tempat.getSel().get(i).getPosisiX() + ","
-                            + tempat.getSel().get(i).getPosisiY() + ",");
+                            + tempat.getSel().get(i).getPosisiY() + ","
+                            + tempat.getSel().get(i).getNilai());
                 }
             }
         }
@@ -294,7 +296,8 @@ public class MainUtama extends javax.swing.JFrame {
         fChoose.setFileSelectionMode(JFileChooser.FILES_ONLY);
         int returnVal = fChoose.showSaveDialog(null);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
-            tempat.setIsi(tempat.getIsi());
+            String isiPetaBaru = PixelPanel.add(tempat).toString();
+            tempat.setIsi(isiPetaBaru);
             tempat.simpanObjekKonfigurasi(fChoose.getSelectedFile());
         }
     }//GEN-LAST:event_saveMenuItemActionPerformed
