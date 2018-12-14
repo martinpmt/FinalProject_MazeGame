@@ -339,7 +339,7 @@ public class Tempat extends JPanel {
     public String getTeksPerintah() {
         String bantu = "";
         for (int i = 0; i < Allperintah.size(); i++) {
-            bantu = bantu + Allperintah.get(i) + " ";
+            bantu = bantu + Allperintah.get(i) + "\n";
         }
         return bantu;
     }

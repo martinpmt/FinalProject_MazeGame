@@ -10,6 +10,7 @@ import java.awt.Toolkit;
 import java.io.File;
 import javax.swing.JFileChooser;
 import Model.Tempat;
+import javax.swing.JPanel;
 
 /**
  *
@@ -258,9 +259,11 @@ public class MainUtama extends javax.swing.JFrame {
         JFileChooser jf = new JFileChooser();
         int returnVal = jf.showOpenDialog(null);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
+            PixelPanel.remove(tempat);
             tempat = new Tempat(jf.getSelectedFile());
             PixelPanel.add(tempat);
             tempat.setSize(450, 428);
+            resetButtonActionPerformed(null);
             // menampilkan atribut 'isi' dari kelas Tempat
             System.out.println("\nIsi peta Baru = ");
             System.out.println(tempat.getIsi());
