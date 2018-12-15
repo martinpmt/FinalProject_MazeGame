@@ -15,8 +15,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.logging.Level;
@@ -28,7 +27,7 @@ import javax.swing.JPanel;
  *
  * @author Aweng
  */
-public class Tempat extends JPanel {
+public class Tempat extends JPanel implements Serializable {
 
     private ArrayList<Tembok> tembok = new ArrayList<>();//menyimpan data tembok
     private Finish finish;
@@ -82,32 +81,24 @@ public class Tempat extends JPanel {
         this.sel.add(finish);
     }
 
-    public void simpanObjekKonfigurasi(File file) {
+    public void simpanKonfigurasi(File file, Tempat tempat) {
         FileOutputStream fos = null;
         try {
-            fos = new FileOutputStream(file);
-            fos.write(isi.getBytes());
+            fos = new FileOutputStream(file, false);
+            for (int i = 0; i < tempat.getSel().size(); i++) {
+                String data = tempat.getSel().get(i).toString();
+                fos.write(data.getBytes());
+            }
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Tempat.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(Tempat.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    public void bacaObjekKonfigurasi(File file) {
-        FileInputStream fis = null;
-        ObjectInputStream ois = null;
-        try {
-            fis = new FileInputStream(file);
-            ois = new ObjectInputStream(fis);
-            Tempat peta = (Tempat) ois.readObject();
-            this.setIsi(peta.getIsi());
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(Sel.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(Sel.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Sel.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                fos.close();
+            } catch (IOException ex) {
+                Logger.getLogger(Tempat.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 
@@ -335,6 +326,13 @@ public class Tempat extends JPanel {
             }
         }
         return bantu;//default return false
+    }
+
+    public void pintas() {
+        pemain.setLebar(finish.getLebar());
+        pemain.setTinggi(finish.getTinggi());
+        isCompleted();
+        repaint();
     }
 
     public void isCompleted() {

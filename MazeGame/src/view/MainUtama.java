@@ -27,15 +27,6 @@ public class MainUtama extends javax.swing.JFrame {
     public MainUtama() {
         this.tempat = new Tempat();
         initComponents();
-//        Dimension frame = Toolkit.getDefaultToolkit().getScreenSize();
-//        int lebar = frame.width;
-//        int tinggi = frame.height;
-//
-//        //mendapatkan titik koordinat x,y
-//        int x = (lebar - this.getWidth()) / 2;
-//        int y = (tinggi - this.getHeight()) / 2;
-//        this.setLocation(x, y);
-//        file=new File("");
         this.setLocationRelativeTo(null);
 
     }
@@ -298,9 +289,7 @@ public class MainUtama extends javax.swing.JFrame {
         fChoose.setFileSelectionMode(JFileChooser.FILES_ONLY);
         int returnVal = fChoose.showSaveDialog(null);
         if (returnVal == JFileChooser.APPROVE_OPTION) {
-            String isiPetaBaru = PixelPanel.add(tempat).toString();
-            tempat.setIsi(isiPetaBaru);
-            tempat.simpanObjekKonfigurasi(fChoose.getSelectedFile());
+            tempat.simpanKonfigurasi(fChoose.getSelectedFile(), tempat);
         }
     }//GEN-LAST:event_saveMenuItemActionPerformed
 
@@ -317,6 +306,7 @@ public class MainUtama extends javax.swing.JFrame {
 
     private void pintasButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pintasButtonActionPerformed
         // TODO add your handling code here:
+        tempat.pintas();
     }//GEN-LAST:event_pintasButtonActionPerformed
 
     private void resetButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_resetButtonActionPerformed

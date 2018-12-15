@@ -107,4 +107,9 @@ public class Sel {
         }
     }
 
+    @Override
+    public String toString() {
+        return String.valueOf(this.getNilai());
+    }
+
 }
