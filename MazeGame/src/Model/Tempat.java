@@ -25,7 +25,7 @@ import javax.swing.JPanel;
 
 /**
  *
- * @author Aweng
+ * @author Gregorius Bryan Osaldi x Martin Paramarta
  */
 public class Tempat extends JPanel implements Serializable {
 
@@ -49,6 +49,7 @@ public class Tempat extends JPanel implements Serializable {
 
     public Tempat() {
         setFocusable(true);
+        
     }
 
     public Tempat(File file) {
@@ -87,7 +88,7 @@ public class Tempat extends JPanel implements Serializable {
             fos = new FileOutputStream(file, false);
             for (int i = 0; i < tempat.getSel().size(); i++) {
                 String data = tempat.getSel().get(i).toString();
-                fos.write(data.getBytes());
+                fos.write(data.getBytes(data));
             }
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Tempat.class.getName()).log(Level.SEVERE, null, ex);
@@ -156,7 +157,7 @@ public class Tempat extends JPanel implements Serializable {
     public void paintComponent(Graphics g) {
         super.paintComponent(g);	   // Hapus background
         // Tempat Gambar:
-        g.setColor(new Color(255, 255, 255));//set panel warna putih
+        g.setColor(new Color(128, 128, 128));//set panel warna gray
         g.fillRect(0, 0, this.getLebarTempat(), this.getTinggiTempat());// set tinggi lebar sesuai konfigurasi
         if (!completed) {
             for (int i = 0; i < sel.size(); i++) {

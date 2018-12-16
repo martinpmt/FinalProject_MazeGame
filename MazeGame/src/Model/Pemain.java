@@ -11,7 +11,7 @@ import javax.swing.ImageIcon;
 
 /**
  *
- * @author Aweng
+ * @author Gregorius Bryan Osaldi x Martin Paramarta
  */
 public class Pemain extends Sel {
 
@@ -21,7 +21,7 @@ public class Pemain extends Sel {
 
     public Pemain(int x, int y, int lebar, int tinggi, char nilai) {
         super(x, y);//Mengakses constructor superclass (pixel) oleh subclass (Pemain) dan lsg di set nilai xy Pemain 
-        URL loc = this.getClass().getResource("/image/pemainx.gif");
+        URL loc = this.getClass().getResource("/image/player.gif");
         ImageIcon iia = new ImageIcon(loc);
         Image image = iia.getImage();
         this.setImage(image);

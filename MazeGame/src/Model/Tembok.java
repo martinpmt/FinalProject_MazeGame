@@ -11,7 +11,7 @@ import javax.swing.ImageIcon;
 
 /**
  *
- * @author Aweng
+ * @author Gregorius Bryan Osaldi x Martin Paramarta
  */
 public class Tembok extends Sel {
 
@@ -21,7 +21,7 @@ public class Tembok extends Sel {
 
     public Tembok(int x, int y, int lebar, int tinggi, char nilai) {
         super(x, y);//Mengakses constructor superclass (pixel) oleh subclass (Tembok) dan lsg di set nilai xy Tembok 
-        URL loc = this.getClass().getResource("/Image/tembokx.jpg");
+        URL loc = this.getClass().getResource("/Image/wall.jpg");
         ImageIcon wall = new ImageIcon(loc);
         Image image = wall.getImage();
         this.setImage(image);

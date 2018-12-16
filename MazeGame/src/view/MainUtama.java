@@ -14,7 +14,7 @@ import javax.swing.JPanel;
 
 /**
  *
- * @author Aweng
+ * @author Gregorius Bryan Osaldi x Martin Paramarta
  */
 public class MainUtama extends javax.swing.JFrame {
 
@@ -27,6 +27,7 @@ public class MainUtama extends javax.swing.JFrame {
     public MainUtama() {
         this.tempat = new Tempat();
         initComponents();
+        
         this.setLocationRelativeTo(null);
 
     }
@@ -56,6 +57,7 @@ public class MainUtama extends javax.swing.JFrame {
         pintasButton = new javax.swing.JButton();
         resetButton = new javax.swing.JButton();
         tombolTambahanLabel = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         jMenuBar1 = new javax.swing.JMenuBar();
         fileMenu = new javax.swing.JMenu();
         openMenuItem = new javax.swing.JMenuItem();
@@ -63,15 +65,20 @@ public class MainUtama extends javax.swing.JFrame {
         exitMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Simple Maze Game V1.0");
+        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         keteranganLabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        keteranganLabel.setForeground(new java.awt.Color(204, 204, 204));
         keteranganLabel.setText("HOW TO PLAY");
+        getContentPane().add(keteranganLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 10, 129, -1));
 
-        jTextArea1.setEditable(false);
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
         jTextArea1.setText("PERINTAH\nU = up / naik\nD = down / turun\nR = right / kanan\nL = left / kiri\nInputan 2 karakter\nundo x = ulangi x langkah terakhir\n\nCONTOH\nU 5 = naik ke atas 5 langkah\nR 1 = geser ke kanan 1 langkah\nundo 1 = ulangi 1 langkah terakhir");
         jScrollPane2.setViewportView(jTextArea1);
+
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(439, 36, 290, 234));
 
         PixelPanel.setBackground(new java.awt.Color(153, 153, 153));
         PixelPanel.setPreferredSize(new java.awt.Dimension(450, 428));
@@ -80,18 +87,22 @@ public class MainUtama extends javax.swing.JFrame {
         PixelPanel.setLayout(PixelPanelLayout);
         PixelPanelLayout.setHorizontalGroup(
             PixelPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 420, Short.MAX_VALUE)
         );
         PixelPanelLayout.setVerticalGroup(
             PixelPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 428, Short.MAX_VALUE)
+            .addGap(0, 417, Short.MAX_VALUE)
         );
+
+        getContentPane().add(PixelPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 11, 420, 417));
 
         jPanel3.setBackground(new java.awt.Color(153, 153, 153));
         jPanel3.setOpaque(false);
 
+        jLabel1.setForeground(new java.awt.Color(204, 204, 204));
         jLabel1.setText("MASUKKAN PERINTAH");
 
+        jLabel2.setForeground(new java.awt.Color(204, 204, 204));
         jLabel2.setText("OUTPUT PERINTAH");
 
         perintah.addActionListener(new java.awt.event.ActionListener() {
@@ -104,6 +115,7 @@ public class MainUtama extends javax.swing.JFrame {
         outputTextArea.setRows(5);
         jScrollPane1.setViewportView(outputTextArea);
 
+        jumlahPerintah.setForeground(new java.awt.Color(204, 204, 204));
         jumlahPerintah.setText("JUMLAH PERINTAH");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -118,9 +130,9 @@ public class MainUtama extends javax.swing.JFrame {
                     .addComponent(jumlahPerintah, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(perintah, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE)
-                    .addComponent(jScrollPane1)
-                    .addComponent(jumlahPerintahText))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 275, Short.MAX_VALUE)
+                    .addComponent(jumlahPerintahText)
+                    .addComponent(perintah))
                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -145,12 +157,15 @@ public class MainUtama extends javax.swing.JFrame {
 
         jPanel3Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jLabel1, jLabel2, perintah});
 
+        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 434, -1, -1));
+
         pintasButton.setText("PINTAS");
         pintasButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 pintasButtonActionPerformed(evt);
             }
         });
+        getContentPane().add(pintasButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(497, 323, 80, 32));
 
         resetButton.setText("RESET");
         resetButton.addActionListener(new java.awt.event.ActionListener() {
@@ -158,9 +173,20 @@ public class MainUtama extends javax.swing.JFrame {
                 resetButtonActionPerformed(evt);
             }
         });
+        getContentPane().add(resetButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(587, 323, 80, 32));
 
         tombolTambahanLabel.setFont(new java.awt.Font("Tahoma", 0, 18)); // NOI18N
+        tombolTambahanLabel.setForeground(new java.awt.Color(204, 204, 204));
         tombolTambahanLabel.setText("TOMBOL TAMBAHAN");
+        getContentPane().add(tombolTambahanLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(497, 295, -1, -1));
+
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/background.png"))); // NOI18N
+        jLabel3.setText("jLabel3");
+        jLabel3.setMaximumSize(new java.awt.Dimension(739, 605));
+        jLabel3.setMinimumSize(new java.awt.Dimension(739, 605));
+        jLabel3.setName(""); // NOI18N
+        jLabel3.setPreferredSize(new java.awt.Dimension(739, 605));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 739, 584));
 
         fileMenu.setText("File");
 
@@ -191,55 +217,9 @@ public class MainUtama extends javax.swing.JFrame {
         jMenuBar1.add(fileMenu);
 
         setJMenuBar(jMenuBar1);
+        jMenuBar1.getAccessibleContext().setAccessibleName("");
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
-        getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(PixelPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 412, Short.MAX_VALUE))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(keteranganLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 297, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(46, 46, 46)
-                        .addComponent(pintasButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(53, 53, 53)
-                        .addComponent(resetButton, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(67, 67, 67)
-                        .addComponent(tombolTambahanLabel)
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(PixelPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-            .addGroup(layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addComponent(keteranganLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(25, 25, 25)
-                .addComponent(tombolTambahanLabel)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(resetButton, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(pintasButton, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        getAccessibleContext().setAccessibleDescription("");
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -252,7 +232,7 @@ public class MainUtama extends javax.swing.JFrame {
             PixelPanel.remove(tempat);
             tempat = new Tempat(jf.getSelectedFile());
             PixelPanel.add(tempat);
-            tempat.setSize(450, 428);
+            tempat.setSize(420, 417);
             resetSemua();
             // menampilkan atribut 'isi' dari kelas Tempat
             System.out.println("\nIsi peta Baru = ");
@@ -376,6 +356,7 @@ public class MainUtama extends javax.swing.JFrame {
     private javax.swing.JFileChooser jFileChooser1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
