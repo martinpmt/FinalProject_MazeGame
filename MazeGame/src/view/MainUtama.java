@@ -22,7 +22,7 @@ public class MainUtama extends javax.swing.JFrame {
     private int counter = 0;
 
     /**
-     * Creates new form Sokoban
+     * Creates new form 
      */
     public MainUtama() {
         this.tempat = new Tempat();
@@ -180,7 +180,7 @@ public class MainUtama extends javax.swing.JFrame {
         tombolTambahanLabel.setText("TOMBOL TAMBAHAN");
         getContentPane().add(tombolTambahanLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(497, 295, -1, -1));
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Image/background.png"))); // NOI18N
+        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Model/background.png"))); // NOI18N
         jLabel3.setText("jLabel3");
         jLabel3.setMaximumSize(new java.awt.Dimension(739, 605));
         jLabel3.setMinimumSize(new java.awt.Dimension(739, 605));
