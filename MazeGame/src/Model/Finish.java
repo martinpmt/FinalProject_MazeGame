@@ -20,7 +20,7 @@ public class Finish extends Sel {
     private char nilai;
 
     public Finish(int x, int y, int lebar, int tinggi, char nilai) {
-        super(x, y);//Mengakses constructor superclass (pixel) oleh subclass (Gawang) dan lsg di set nilai xy Gawang 
+        super(x, y);
         URL loc = this.getClass().getResource("finish.png");
         ImageIcon g = new ImageIcon(loc);
         Image image = g.getImage();

@@ -102,6 +102,7 @@
       <SubComponents>
         <Component class="javax.swing.JTextArea" name="jTextArea1">
           <Properties>
+            <Property name="editable" type="boolean" value="false"/>
             <Property name="columns" type="int" value="20"/>
             <Property name="rows" type="int" value="5"/>
             <Property name="text" type="java.lang.String" value="PERINTAH&#xa;U = up / naik&#xa;D = down / turun&#xa;R = right / kanan&#xa;L = left / kiri&#xa;Inputan 2 karakter&#xa;undo x = ulangi x langkah terakhir&#xa;&#xa;CONTOH&#xa;U 5 = naik ke atas 5 langkah&#xa;R 1 = geser ke kanan 1 langkah&#xa;undo 1 = ulangi 1 langkah terakhir"/>
@@ -292,7 +293,7 @@
         <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
           <Image iconType="3" name="/Model/background.png"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="jLabel3"/>
+        <Property name="text" type="java.lang.String" value="backgroundUI"/>
         <Property name="maximumSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
           <Dimension value="[739, 605]"/>
         </Property>

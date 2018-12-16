@@ -10,6 +10,7 @@ import java.awt.Toolkit;
 import java.io.File;
 import javax.swing.JFileChooser;
 import Model.Tempat;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 /**
@@ -21,13 +22,10 @@ public class MainUtama extends javax.swing.JFrame {
     private Tempat tempat;
     private int counter = 0;
 
-    /**
-     * Creates new form 
-     */
     public MainUtama() {
         this.tempat = new Tempat();
         initComponents();
-        
+
         this.setLocationRelativeTo(null);
 
     }
@@ -73,6 +71,7 @@ public class MainUtama extends javax.swing.JFrame {
         keteranganLabel.setText("HOW TO PLAY");
         getContentPane().add(keteranganLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 10, 129, -1));
 
+        jTextArea1.setEditable(false);
         jTextArea1.setColumns(20);
         jTextArea1.setRows(5);
         jTextArea1.setText("PERINTAH\nU = up / naik\nD = down / turun\nR = right / kanan\nL = left / kiri\nInputan 2 karakter\nundo x = ulangi x langkah terakhir\n\nCONTOH\nU 5 = naik ke atas 5 langkah\nR 1 = geser ke kanan 1 langkah\nundo 1 = ulangi 1 langkah terakhir");
@@ -181,7 +180,7 @@ public class MainUtama extends javax.swing.JFrame {
         getContentPane().add(tombolTambahanLabel, new org.netbeans.lib.awtextra.AbsoluteConstraints(497, 295, -1, -1));
 
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Model/background.png"))); // NOI18N
-        jLabel3.setText("jLabel3");
+        jLabel3.setText("backgroundUI");
         jLabel3.setMaximumSize(new java.awt.Dimension(739, 605));
         jLabel3.setMinimumSize(new java.awt.Dimension(739, 605));
         jLabel3.setName(""); // NOI18N
@@ -234,13 +233,11 @@ public class MainUtama extends javax.swing.JFrame {
             PixelPanel.add(tempat);
             tempat.setSize(420, 417);
             resetSemua();
-            // menampilkan atribut 'isi' dari kelas Tempat
             System.out.println("\nIsi peta Baru = ");
             System.out.println(tempat.getIsi());
             System.out.println("\nKoordinat titik");
             if (tempat.getSel() != null) {
                 for (int i = 0; i < tempat.getSel().size(); i++) {
-                    // menampilkan nilai posisiX,posisiY dan nilai
                     System.out.println(
                             tempat.getSel().get(i).getPosisiY() + ","
                             + tempat.getSel().get(i).getPosisiX() + ","
@@ -248,15 +245,13 @@ public class MainUtama extends javax.swing.JFrame {
                 }
             }
         }
-        //Setelah diset panel pixel, kita letakan posisi peta ditengah pixel panel
         int lebar = PixelPanel.getWidth();
         int tinggi = PixelPanel.getHeight();
-        //mendapatkan titik koordinat x,y
+
         int x = (lebar - tempat.getWidth());
         int y = (tinggi - tempat.getHeight());
         tempat.setLocation(0, y);
-//        // buat tempatPanel dan tambahkan tempat ke tempatPanel
-//        peta = new Peta();
+        tempat.load();
     }//GEN-LAST:event_openMenuItemActionPerformed
 
     private void exitMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exitMenuItemActionPerformed
@@ -265,12 +260,10 @@ public class MainUtama extends javax.swing.JFrame {
 
     private void saveMenuItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveMenuItemActionPerformed
         // TODO add your handling code here:
-        JFileChooser fChoose = new JFileChooser();
-        fChoose.setFileSelectionMode(JFileChooser.FILES_ONLY);
-        int returnVal = fChoose.showSaveDialog(null);
-        if (returnVal == JFileChooser.APPROVE_OPTION) {
-            tempat.simpanKonfigurasi(fChoose.getSelectedFile(), tempat);
-        }
+        tempat.save();
+        JOptionPane.showMessageDialog(null, "Successfully Saving");
+        PixelPanel.removeAll();
+        PixelPanel.setBackground(null);
     }//GEN-LAST:event_saveMenuItemActionPerformed
 
     private void perintahActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_perintahActionPerformed
@@ -335,6 +328,10 @@ public class MainUtama extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(MainUtama.class
                     .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>

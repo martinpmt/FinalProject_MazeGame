@@ -7,7 +7,7 @@ package Model;
 
 /**
  *
- * @author greg
+ * @author Gregorius Bryan Osaldi x Martin Paramarta 
  */
 public class Jalan extends Sel {
 

@@ -20,7 +20,7 @@ public class Tembok extends Sel {
     private char nilai;
 
     public Tembok(int x, int y, int lebar, int tinggi, char nilai) {
-        super(x, y);//Mengakses constructor superclass (pixel) oleh subclass (Tembok) dan lsg di set nilai xy Tembok 
+        super(x, y);
         URL loc = this.getClass().getResource("wall.jpg");
         ImageIcon wall = new ImageIcon(loc);
         Image image = wall.getImage();

@@ -41,7 +41,7 @@ public class Tempat extends JPanel implements Serializable {
     private String isi;
 
     private File Alamatpeta;//digunakan untuk merestart level
-    private ArrayList Allperintah = new ArrayList();//menyimpan semua perintah yang dimasukkan
+    private ArrayList<String> Allperintah = new ArrayList();//menyimpan semua perintah yang dimasukkan
 
     public Tempat() {
         setFocusable(true);
@@ -87,24 +87,18 @@ public class Tempat extends JPanel implements Serializable {
         this.sel.add(pemain);
     }
 
-    public void simpanKonfigurasi(File file, Tempat tempat) {
-        FileOutputStream fos = null;
+    public void savePermainan(File file) {
         try {
-            fos = new FileOutputStream(file, false);
-            for (int i = 0; i < tempat.getSel().size(); i++) {
-                String data = tempat.getSel().get(i).toString();
-                fos.write(data.getBytes(data));
+            FileOutputStream fos = new FileOutputStream(file);
+            for (int i = 0; i < this.Allperintah.size(); i++) {
+                String data = this.Allperintah.get(i) + ",";
+                fos.write(data.getBytes());
             }
+            fos.close();
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Tempat.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(Tempat.class.getName()).log(Level.SEVERE, null, ex);
-        } finally {
-            try {
-                fos.close();
-            } catch (IOException ex) {
-                Logger.getLogger(Tempat.class.getName()).log(Level.SEVERE, null, ex);
-            }
         }
     }
 
@@ -317,9 +311,49 @@ public class Tempat extends JPanel implements Serializable {
         repaint();
     }
 
+    public void save() {
+        this.savePermainan(new File("save.dat"));
+    }
+
+    public void load() {
+        try {
+            this.Allperintah.clear();
+            Tempat tempat = new Tempat(Alamatpeta);
+            tempat.loadPermainan(new File("save.dat"));
+            for (int i = 0; i < tempat.Allperintah.size(); i++) {
+                PerintahGerak(tempat.Allperintah.get(i));
+            }
+            this.savePermainan(new File("save.dat"));
+        } catch (IOException ex) {
+            Logger.getLogger(Tempat.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public void loadPermainan(File file) throws IOException {
+        FileInputStream fis = null;
+        try {
+            String hasilBaca = "";
+            fis = new FileInputStream(file);
+            int dataInt;
+
+            while ((dataInt = fis.read()) != -1) {
+                if ((char) dataInt == ',') {
+                    this.Allperintah.add(hasilBaca);
+                    hasilBaca = "";
+                } else {
+                    hasilBaca = hasilBaca + (char) dataInt;
+                }
+            }
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Tempat.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Tempat.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     public void isCompleted() {
         if (pemain.getLebar() == finish.getLebar() && pemain.getTinggi() == finish.getTinggi()) {
-            JOptionPane.showMessageDialog(null, "Selamat anda berhasil");
+            JOptionPane.showMessageDialog(null, "Selamat anda berhasil!");
         }
     }
 

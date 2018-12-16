@@ -18,9 +18,9 @@ public class Sel {
     private int posisiX;
     private int posisiY;
     private char nilai;
-    private Image image;//untuk menset gambar dalam pixel posisi xy
+    private Image image;
 
-    private int Jarak = 30;//jika sudah menentukan jarak/pixel 32 maka semua gambar harus di set 32x32 pixel, dan jarak harus sama dengan dikelas Peta
+    private final int JARAK = 30;
 
     public Sel(int x, int y) {
         this.posisiX = x;
@@ -76,7 +76,7 @@ public class Sel {
     }
 
     public boolean PosisiKiriObjek(Sel Objek) {
-        if (((this.getLebar() - Jarak) == Objek.getLebar()) && (this.getTinggi() == Objek.getTinggi())) {
+        if (((this.getLebar() - JARAK) == Objek.getLebar()) && (this.getTinggi() == Objek.getTinggi())) {
             return true;
         } else {
             return false;
@@ -84,7 +84,7 @@ public class Sel {
     }
 
     public boolean PosisiKananObjek(Sel Objek) {
-        if (((this.getLebar() + Jarak) == Objek.getLebar()) && (this.getTinggi() == Objek.getTinggi())) {
+        if (((this.getLebar() + JARAK) == Objek.getLebar()) && (this.getTinggi() == Objek.getTinggi())) {
             return true;
         } else {
             return false;
@@ -92,7 +92,7 @@ public class Sel {
     }
 
     public boolean PosisiAtasObjek(Sel Objek) {
-        if (((this.getTinggi() - Jarak) == Objek.getTinggi()) && (this.getLebar() == Objek.getLebar())) {
+        if (((this.getTinggi() - JARAK) == Objek.getTinggi()) && (this.getLebar() == Objek.getLebar())) {
             return true;
         } else {
             return false;
@@ -100,7 +100,7 @@ public class Sel {
     }
 
     public boolean PosisiBawahObjek(Sel Objek) {
-        if (((this.getTinggi() + Jarak) == Objek.getTinggi()) && (this.getLebar() == Objek.getLebar())) {
+        if (((this.getTinggi() + JARAK) == Objek.getTinggi()) && (this.getLebar() == Objek.getLebar())) {
             return true;
         } else {
             return false;
