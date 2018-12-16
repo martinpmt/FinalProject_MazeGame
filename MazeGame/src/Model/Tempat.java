@@ -30,14 +30,11 @@ import javax.swing.JPanel;
 public class Tempat extends JPanel implements Serializable {
 
     private ArrayList<Tembok> tembok = new ArrayList<>();//menyimpan data tembok
-    private Finish finish;
+    private ArrayList<Jalan> jalan = new ArrayList<>();
     private ArrayList<Sel> sel = new ArrayList<>();//menyimpan data tembok,finish,pemain
+    private Finish finish;
     private Pemain pemain;
     private LinkedList<String> undo = new LinkedList<>();
-    private final char TEMBOK = '#';
-    private final char PEMAIN = '@';
-    private final char KOSONG = '.';
-    private final char FINISH = 'O';
     private int lebarTempat = 0;
     private int tinggiTempat = 0;
     private int jarak = 30;//untuk menentukan besarkan pixel/jarak space gambar didalam panel
@@ -49,7 +46,7 @@ public class Tempat extends JPanel implements Serializable {
 
     public Tempat() {
         setFocusable(true);
-        
+
     }
 
     public Tempat(File file) {
@@ -64,6 +61,14 @@ public class Tempat extends JPanel implements Serializable {
         this.isi = isi;
     }
 
+    public ArrayList<Jalan> getJalan() {
+        return jalan;
+    }
+
+    public void setJalan(Jalan jalan) {
+        this.jalan.add(jalan);
+    }
+
     public ArrayList<Tembok> getTembok() {
         return tembok;
     }
@@ -76,10 +81,11 @@ public class Tempat extends JPanel implements Serializable {
         return sel;
     }
 
-    public void setSel(Pemain pemain, ArrayList<Tembok> tembok, Finish finish) {
-        this.sel.add(pemain);
+    public void setSel(ArrayList<Jalan> jalan, Pemain pemain, ArrayList<Tembok> tembok, Finish finish) {
+        this.sel.addAll(jalan);
         this.sel.addAll(tembok);
         this.sel.add(finish);
+        this.sel.add(pemain);
     }
 
     public void simpanKonfigurasi(File file, Tempat tempat) {
@@ -113,24 +119,27 @@ public class Tempat extends JPanel implements Serializable {
                 int posisiX = 0;
                 int posisiY = 0;
                 Tembok wall;
+                Jalan route;
                 String isi = "";
                 int data;
                 while ((data = fis.read()) != -1) {
                     isi = isi + (char) data;
                     if ((char) data != '\n') {
-                        if ((char) data == TEMBOK) {
+                        if ((char) data == '#') {
                             wall = new Tembok(posisiX, posisiY, lebar, tinggi, (char) data);
                             setTembok(wall);
                             posisiX++;
                             lebar += jarak;
-                        } else if ((char) data == PEMAIN) {
+                        } else if ((char) data == '@') {
                             pemain = new Pemain(posisiX, posisiY, lebar, tinggi, (char) data);
                             posisiX++;
                             lebar += jarak;
-                        } else if ((char) data == KOSONG) {
+                        } else if ((char) data == '.') {
+                            route = new Jalan(posisiX, posisiY, lebar, tinggi, (char) data);
+                            setJalan(route);
                             posisiX++;
                             lebar += jarak;
-                        } else if ((char) data == FINISH) {
+                        } else if ((char) data == 'O') {
                             finish = new Finish(posisiX, posisiY, lebar, tinggi, (char) data);
                             posisiX++;
                             lebar += jarak;
@@ -145,7 +154,7 @@ public class Tempat extends JPanel implements Serializable {
                     tinggiTempat = tinggi;
                 }
                 setIsi(isi);
-                setSel(pemain, tembok, finish);
+                setSel(jalan, pemain, tembok, finish);
             }
 
         } catch (IOException ex) {
